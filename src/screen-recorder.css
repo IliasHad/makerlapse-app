@@ -1,0 +1,357 @@
+body {
+  background-color: #FCFBFF;
+  color: #20262a;
+  font-family: monospace;
+  /*padding:15px;*/
+  display: -webkit-flex;
+  -webkit-justify-content: center;
+  -webkit-align-items: center;
+  -webkit-flex-direction: column;
+}
+.win-title {
+  -webkit-app-region: drag;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 32px;
+  background: #fff;
+  flex-grow: 0;
+  flex-shrink: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+.row {
+  display:block;
+  width:100%;
+  text-align: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 15px;
+}
+.list__items {
+  list-style: none;
+}
+.list__items li a {
+  text-decoration: none;
+  font-size: 15px;
+  color: #000;
+}
+.list__items li:not(:last-of-type){
+  margin-bottom: 15px;
+}
+.capturer__list {
+  width: 100%;
+  padding: 0 10px;
+}
+.img__container  {
+  margin: 10px;
+  height: 200px;
+  width: 325px;
+}
+.img__container img {
+  max-height: 100%;
+  max-width: 100%;
+}
+.screen__items {
+  display: block;
+  margin-bottom: 10px;
+}
+.row.record-bar { 
+  margin: 10px auto auto;
+  bottom: 75px;
+}
+.ck-button {
+  display:inline-block;
+}
+.record__video{
+  background: #FFFDFF;
+  border-radius: 50%;
+  position: relative;
+  height: 70px;
+  width: 70px;
+  display: block;
+  margin: 0 auto;
+  transition: all 2s ease-in;
+  box-shadow: 0px 0px 2px grey;
+  margin-top: 20px;
+    margin-bottom: 10px;
+
+}
+.btn-primary.open__timelapse {
+  display: none
+}
+.progress-wrapper {
+  display: none
+}
+.duration__form select {
+  margin: 20px 0;
+}
+.duration__form {
+  width: 100%
+}
+p {
+  text-align:center;
+  margin: 20px 0;
+}
+.download__timelapse {
+  margin: 0 auto;
+  display: block;
+}
+.actions {
+  text-align: center;
+
+  margin: 0 10px;
+}
+.countdown__timer {
+  margin: 15px 0;
+}
+select {
+  color: #212529;
+ 
+  background-color: rgb(244, 245, 247);
+  /* font-size: .875rem; */
+  /* position: relative; */
+  transition: all .15s ease;
+  font-size: .575rem;
+  font-weight: 600;
+  line-height: 1.5;
+  display: inline-block;
+  padding: .625rem 1.25rem;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  text-align: center;
+  vertical-align: middle;
+  color: #525f7f;
+  border: 1px solid transparent;
+  border-radius: .25rem
+}
+.record__btn {
+  display: none
+}
+.duration__form input {
+  width: 30px;
+}
+.record__video:after {
+  height: 80%;
+  width: 80%;
+ background: #FF2D5C;
+  position: absolute;
+  top: 7px;
+  left: 7px;
+  position: absolute;
+  content: "";
+  
+  border-radius: 50%;
+}
+
+.record__video:before {
+  display: none;
+  height: 60%;
+  width: 60%;
+ background: #FF2D5C;
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  position: absolute;
+  content: "";
+  /* border-radius: 50%; */
+  border-radius: 5px;
+}
+.record__btn:checked ~ .record__video:after {
+  display: none !important
+  }
+.record__btn:checked ~ .record__video:before {
+  
+    display: block !important
+  }
+.ck-button, .row button {
+  
+  cursor: pointer;
+}
+
+
+
+.ck-button input {
+  position:absolute;
+  top: -20px;
+}
+
+.ck-button.active {
+  color: #29759b;
+  border-color: #29759b;
+  background-color: #191919;
+}
+
+.duration__form {
+  display: none
+}
+.alert-danger-license {
+  display: none
+}
+/*video {
+  width:100%;
+  max-width: 550px;
+  border: 1px solid #37474f;
+}*/
+
+
+.scroll-area {
+  position: absolute;
+  top: 32px;
+  left: 0;
+  right: 0;
+  bottom: 135px;
+  /* width: 100%; */
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: #20262a;
+}
+.video-container {
+  position: relative;
+  padding-bottom: 56.25%; /*16:9*/
+  padding-top: 30px;
+  /*width: 100%;*/
+  height: 0;
+  margin: 0 auto;
+  /*margin-top: 32px;*/
+  overflow: hidden;
+  background: #20262a;
+}
+
+.video-container iframe,
+.video-container object,
+.video-container embed,
+.video-container video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #20262a;
+}
+
+.icon {
+  height: 16px;
+  width: 16px;
+  margin: 8px;
+}
+.icon img {
+  width: 100%;
+}
+.win-titles {
+  display: flex;
+  max-width: calc(100% - 163px);
+  overflow: hidden;
+}
+.win-titles span {
+  padding: 6px 0;
+  color: #e4e4e4;
+  font-family: 'BlinkMacSystemFont', 'Lucida Grande', 'Segoe UI';
+  font-size: 14px;
+}
+.win-controll {
+  flex-grow: 0;
+  flex-shrink: 0;
+  margin-left: auto;
+  height: 100%;
+}
+.win-controll button {
+  -webkit-app-region: no-drag;
+  display: inline-block;
+  position: relative;
+  width: 45px;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+  color: #a0a0a0;
+  background-color: transparent;
+  transition: background-color 0.25s ease;
+}
+.win-controll button:not(:disabled):focus {
+  outline: none;
+}
+
+.win-controll button:not(:disabled):hover {
+  background-color: #888;
+  color: #fff;
+}
+
+.win-controll button:not(:disabled):hover:active {
+  background-color: #666;
+  transition: none;
+}
+
+.win-controll button.window-close:not(:disabled):hover {
+  background-color: #e81123;
+  color: #fff;
+}
+
+.win-controll button.window-close:not(:disabled):hover:active {
+  background-color: #bf0f1d;
+  transition: none;
+}
+.win-controll button:disabled {
+  color: #37474f;
+}
+.win-controll button svg {
+  fill: currentColor;
+}
+button:active {
+  outline: none;
+}
+button:focus {outline:0;}
+
+
+.duration__form label {
+  margin-bottom: 20px;
+}
+
+.settings__form {
+  margin: 0 auto
+}
+.timelapse__container  h5{
+  font-size: .9rem;
+  text-align: center;
+}
+.timelapse__container select {
+  margin: 30px auto;
+}
+.settings__form input {
+  width: 100px;
+  margin: 0 auto;
+}
+.alert-success-license {
+  display: none
+}
+.btn-primary.save__settings {
+  display: block;
+  margin: 30px auto;
+}
+.input__fields label {
+  display: block;
+  margin: 20px auto;
+  text-align: center;
+}
+.container {
+  text-align: center;
+  margin: 30px 0;
+}
+.alert-danger-time  {
+  display: none
+}
+.input__fields {
+  display: none
+}
+a {
+  margin: 20px;
+}

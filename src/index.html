@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Screen Lapse 
+        
+    </title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="screen-recorder.css">
+    <!-- Fonts -->
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+
+<!-- Icons -->
+<link href="assets/vendor/nucleo/css/nucleo.css" rel="stylesheet">
+<link href="assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+<!-- Theme CSS -->
+<link type="text/css" href="assets/css/argon.min.css" rel="stylesheet">
+</head>
+<body>
+    <a href="settings.html">Settings</a>
+    <div class="img__container"></div>
+   <div class="capturer__list">
+     
+    <select class="screen__items">
+        <label>Window </label>
+ 
+</select>
+       
+      
+    <select class="window__items">
+            <label>Window </label>
+     
+    </select>
+
+   
+   </div>
+    <div class="actions">
+      
+           
+       <input type="checkbox"  id="record" class="record__btn"  onchange='handleChange(this);'>
+       <label for="record" class="record__video"></label>
+<p class="contdown__timer"></p>
+
+<div class="alert alert-danger alert-danger-time" role="alert">
+  <strong>Sorry!</strong> You need to upgrate to get unlimited recoridng time 
+</div>
+<div class="progress-wrapper">
+  <div class="progress-info">
+    <div class="progress-label">
+      <span>Task completed</span>
+    </div>
+    <div class="progress-percentage">
+      <span>60%</span>
+    </div>
+  </div>
+  <div class="progress">
+    <div class="progress-bar bg-default" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
+  </div>
+ 
+</div>
+
+
+<form class="duration__form" >
+    <label for="minutes">Ouput Duration</label>
+    <input  type="number" placeholder="M" >
+    <input  type="number"  placeholder="S" >
+    <select class="export__items">
+              
+        <option value="mp4">Export As MP4</option>
+        <option value="instagram">Export for Instagram</option>
+        <option value="twitter">Export for Twitter</option>
+        <option value="youtube">Export for Youtube</option>
+
+       </select>
+    <button class="btn btn-primary download__timelapse" type="submit">Download Timelapse Video</button>
+
+</form>
+<button class="btn btn-primary open__timelapse " >Open Timelapse Video</button>
+
+      </div>
+     <p>Made it by Ilias Haddad</p>
+        <script src="app.js"></script>
+  
+</body>
+</html>

@@ -1,0 +1,83 @@
+{
+  "name": "makerlapse",
+  "description": "MakerLapse",
+  "version": "0.0.1",
+  "author": "Ilias Haddad",
+  "scripts": {
+    "build": "electron-packager ./src ScreenRecorder  --platform=win32 --arch=x64",
+    "build:tux": "electron-packager ./src ScreenRecorder  --platform=linux --arch=x64",
+    "build:osx": "electron-packager ./src ScreenRecorder  --platform=darwin --arch=x64",
+    "start": "electron . --disable-d3d11",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "dist-all": "electron-builder --linux"
+  },
+  "main": "src/main.js",
+  "devDependencies": {
+    "electron-packager": "^13.0.1",
+    "electron-builder": "^21.2.0",
+    "electron": "4.0.0"
+  },
+  "dependencies": {
+    "domify": "^1.4.0",
+    "easytimer": "^1.1.1",
+    "electron-builder-squirrel-windows": "^21.2.0",
+    "electron-log": "^3.0.7",
+    "electron-updater": "^4.1.2",
+    "ffmpeg": "0.0.4",
+    "ffmpeg-on-progress": "^1.0.0",
+    "ffmpeg-static": "^2.5.0",
+    "ffprobe-static": "^3.0.0",
+    "fluent-ffmpeg": "^2.1.2",
+    "os": "^0.1.1",
+    "read-blob": "^1.1.0",
+    "streamifier": "^0.1.1",
+    "uniqid": "^5.0.3"
+  },
+  "build": {
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "repo",
+        "repo": "makerlapse-app"
+      }
+    ],
+    "appId": "com.github.ilias.makerlapse-app",   
+     "asar": true,
+    "productName": "Makerlapse",
+    "asarUnpack": [
+      "**/app/node_modules/ffmpeg-static/*",
+      "**/app/node_modules/ffprobe-static/*"
+    ],
+    "copyright": "Copyright © 2019 ${author}",
+    "artifactName": "${productName}.${ext}",
+    "win": {
+      "target": [
+        "squirrel",
+        "nsis"
+      ],
+      "icon": "src/assets/icons/icon.png"
+    },
+    "dmg": {
+      "contents": [
+        {
+          "x": 110,
+          "y": 150
+        },
+        {
+          "x": 240,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ],
+      "icon": "src/assets/icons/icon.png"
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ]
+    }
+  }
+}
