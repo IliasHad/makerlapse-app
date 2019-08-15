@@ -20,6 +20,7 @@ const app = remote.app;
 const userAppPath =  app.getPath('userData');
 let settingsPath = path.join(userAppPath, "settings.json")
 let status = "free"
+
 /*var ffmpeg = Promise.promisify(require("fluent-ffmpeg"));
 var ffmpegPath = require("@ffmpeg-installer/ffmpeg").path;
 var ffprobePath = require("@ffprobe-installer/ffprobe").path;
@@ -107,6 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
      
   })
+
 
   Array.from(document.querySelectorAll(".capturer__list select")).forEach(el => {
     el.addEventListener("change", e => {

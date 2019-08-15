@@ -1,16 +1,19 @@
 {
   "name": "makerlapse",
   "description": "MakerLapse",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "author": "Ilias Haddad",
+  "repository": "https://github.com/IliasHad/makerlapse-app",
   "scripts": {
-    "build": "electron-packager ./src ScreenRecorder  --platform=win32 --arch=x64",
     "build:tux": "electron-packager ./src ScreenRecorder  --platform=linux --arch=x64",
     "build:osx": "electron-packager ./src ScreenRecorder  --platform=darwin --arch=x64",
     "start": "electron . --disable-d3d11",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder",
-    "dist-all": "electron-builder --linux"
+    "dist": "electron-builder --publish always",
+    "dist-all": "electron-builder --linux",
+    "build": "electron-builder --win",
+    "ship": "electron-builder build -p always",
+    "release": "electron-builder build  -p always "
   },
   "main": "src/main.js",
   "devDependencies": {
@@ -22,6 +25,7 @@
     "domify": "^1.4.0",
     "easytimer": "^1.1.1",
     "electron-builder-squirrel-windows": "^21.2.0",
+    "electron-is-dev": "^1.1.0",
     "electron-log": "^3.0.7",
     "electron-updater": "^4.1.2",
     "ffmpeg": "0.0.4",
@@ -38,12 +42,13 @@
     "publish": [
       {
         "provider": "github",
-        "owner": "repo",
-        "repo": "makerlapse-app"
+        "owner": "IliasHad",
+        "repo": "makerlapse-app",
+        "token": "dc40fe2c1fb9629578458f7af870a0ee2152c13e"
       }
     ],
-    "appId": "com.github.ilias.makerlapse-app",   
-     "asar": true,
+    "appId": "com.github.ilias.makerlapse-app",
+    "asar": true,
     "productName": "Makerlapse",
     "asarUnpack": [
       "**/app/node_modules/ffmpeg-static/*",

@@ -1,0 +1,4 @@
+win:
+  publish:
+    - github
+   
