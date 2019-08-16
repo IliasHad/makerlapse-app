@@ -1,7 +1,7 @@
 {
   "name": "makerlapse",
   "description": "MakerLapse",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Ilias Haddad",
   "repository": "https://github.com/IliasHad/makerlapse-app",
   "scripts": {
@@ -12,7 +12,7 @@
     "dist": "electron-builder --publish always",
     "dist-all": "electron-builder --linux",
     "build": "electron-builder --win",
-    "ship": "electron-builder build -p always",
+    "release-all": "electron-builder build   -p always ",
     "release": "electron-builder build  -p always "
   },
   "main": "src/main.js",
@@ -39,6 +39,7 @@
     "uniqid": "^5.0.3"
   },
   "build": {
+    "compression":"maximum",
     "publish": [
       {
         "provider": "github",
@@ -59,24 +60,16 @@
     "win": {
       "target": [
         "squirrel",
-        "nsis"
+        "nsis", "zip"
       ],
       "icon": "src/assets/icons/icon.png"
     },
-    "dmg": {
-      "contents": [
-        {
-          "x": 110,
-          "y": 150
-        },
-        {
-          "x": 240,
-          "y": 150,
-          "type": "link",
-          "path": "/Applications"
-        }
+    "mac": {
+      "target": [
+      "dmg",
+        "zip"
       ],
-      "icon": "src/assets/icons/icon.png"
+      "icon": "src/assets/icons/icon_512.png"
     },
     "linux": {
       "target": [

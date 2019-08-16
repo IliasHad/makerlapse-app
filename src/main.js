@@ -1,7 +1,6 @@
 const {app, BrowserWindow, dialog,ipcMain, MenuItem , Menu} = require('electron')
 const path = require('path')
 let mainWindow
-const checkForUpdates = require('./updater')
 const log = require('electron-log');
 const {autoUpdater} = require("electron-updater");
 const isDev = require('electron-is-dev');
@@ -121,10 +120,7 @@ autoUpdater.on('update-available', () => {
     if (buttonIndex === 0) {
       autoUpdater.downloadUpdate()
     }
-    else {
-      updater.enabled = true
-      updater = null
-    }
+   
   })
 })
 
@@ -133,8 +129,8 @@ autoUpdater.on('update-not-available', () => {
     title: 'No Updates',
     message: 'Current version is up-to-date.'
   })
-  updater.enabled = true
-  updater = null
+ 
+
 })
 
 autoUpdater.on('update-downloaded', () => {
