@@ -19,7 +19,6 @@ console.log(ffprobePath)
 const app = remote.app;
 const userAppPath =  app.getPath('userData');
 let settingsPath = path.join(userAppPath, "settings.json")
-let status = "free"
 
 /*var ffmpeg = Promise.promisify(require("fluent-ffmpeg"));
 var ffmpegPath = require("@ffmpeg-installer/ffmpeg").path;
@@ -90,12 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
        console.log(settings)
        recordingType = settings.typeOfInput
        imagePerSecond = settings.imagePerSecond
-       license_key = settings.license_key
-       console.log(license_key)
-       if(license_key ) {
-         status = "pro"
-         console.log(status)
-       }
+     
      
 
         console.log(recordingType, imagePerSecond);
@@ -282,23 +276,9 @@ const recorderOnDataAvailable = event => {
     let blob = new Blob(recordedChunks, { type: "video/webm" });
 
 
-    if(status === "free") {
-
-   console.log(elaspedTime)
-   if(elaspedTime > 29) {
-    reachFreeLimit()
-
-   }
-   else {
-   saveData(blob)
-  }
-   
-
-    console.log(blob);
-  }
-  else {
+ 
     saveData(blob)
-  }
+  
 };
 }
 const stopRecording = () => {
@@ -592,16 +572,7 @@ const ScreenShotPath = `${userAppPath}\\Makerlapse-Recorder-${uniqid()}`
 
 const takeScreenShot =  id => {
  console.log(id)
- if(status === "free") {
 
-  let elaspedTime  = (Date.now() - startTime ) / 60000
-  console.log(elaspedTime)
-
-  if(elaspedTime > 30) {
- reachFreeLimit()
-  }
- }
- else {
 
   let thumb = sourcesItems.filter(el => el.id === id)[0].thumbnail;
   console.log(ScreenShotPath)
@@ -626,7 +597,7 @@ const takeScreenShot =  id => {
   })
  
     
-}
+
  
 }
 const getThumbanil = id => {

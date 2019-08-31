@@ -6,32 +6,13 @@ const path = require('path')
 const fs = require('fs')
 const fecth = require('node-fetch')
 let settingsPath = path.join(userAppPath, "settings.json")
-let status = "free"
 let optionList = document.querySelector('.timelapse__container .screen__items')
 document.addEventListener("DOMContentLoaded", () => {
 
-    fs.readFile(settingsPath, (err, data) => {
-        if (err) throw err;
-       let settings = JSON.parse(data);
-       
-       license_key = settings.license_key
-       console.log(license_key)
-       if(license_key ) {
-         status = "pro"
-         console.log(status)
-       }
-     
-
-    });
+  
     let option_video = '<option value="video">Timelapse From Video</option>'
     let option_image = ' <option value="photo">Timelapse From Photos</option>'
-    if (status === "free") {
-        optionList.insertAdjacentHTML("afterbegin", option_video);
-    } else {
-        optionList.insertAdjacentHTML("afterbegin", option_video);
-        optionList.insertAdjacentHTML("afterbegin", option_image);
 
-    }
 let typeInput 
   
   document.querySelector(".timelapse__container select").addEventListener("change", e => {

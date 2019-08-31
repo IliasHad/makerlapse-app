@@ -18,7 +18,7 @@ app.on('ready', () => {
     title:"Makerlapse"
 
     
-  //  ,frame: false
+   //,frame: false
 
 
   });
