@@ -134,8 +134,35 @@ select {
 .record__btn {
   display: none
 }
-.duration__form input {
-  width: 30px;
+
+input[type=range]{
+  -webkit-appearance: none;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+  width: 300px;
+  height: 5px;
+  background: #ddd;
+  border: none;
+  border-radius: 3px;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: none;
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  background: #5e72e4;;
+  margin-top:-27px
+}
+
+input[type=range]:focus {
+  outline: none;
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: #ccc;
 }
 .record__video:after {
   height: 80%;
@@ -149,7 +176,21 @@ select {
   
   border-radius: 50%;
 }
+#rangeValue {
+  left: 25px;
+  color:#fff;
 
+  display: block;
+  position: absolute;;
+  cursor: pointer;
+}
+.form__slider    {
+  margin: 20px;
+  position: relative
+}
+#rangeSlider {
+  width: 250px;
+}
 .record__video:before {
   display: none;
   height: 60%;
@@ -355,3 +396,6 @@ button:focus {outline:0;}
 a {
   margin: 20px;
 }
+
+
+

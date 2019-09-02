@@ -26,7 +26,7 @@ var ffprobePath = require("@ffprobe-installer/ffprobe").path;
 ffmpeg.setFfmpegPath(ffmpegPath);
 ffmpeg.setFfprobePath(ffprobePath);*/
 let sourcesItems = [];
-
+let selectedSpeed = 0;
 remote.globalShortcut.register('CommandOrControl+Shift+K', () => {
   remote.BrowserWindow.getFocusedWindow().webContents.openDevTools()
 })
@@ -43,6 +43,8 @@ timer.addEventListener("secondsUpdated", function(e) {
     ".contdown__timer"
   ).innerHTML = timer.getTimeValues().toString();
 });
+
+
 timer.addEventListener('stop', function(e) {
   document.querySelector(
     ".contdown__timer"
@@ -134,9 +136,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
       }
 
-      calcSpeed(minutes, secondes)
+   
 
-     
+      addSettings(selectedSpeed)
 
     }
    
@@ -155,7 +157,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Add Settings For Eveyr Option
 const addSettings = (speed) => {
-  
+  console.log(speed)
   
   let defaultParms = [
     "-preset ultrafast",
@@ -647,15 +649,43 @@ const handleChange = checkbox => {
 
 
 
+var rangeSlider = document.getElementById("rangeSlider");
+var rangeBullet = document.getElementById("rangeValue");
+
+rangeSlider.addEventListener("input", showSliderValue, false);
+
+function showSliderValue() {
+  let  bulletPosition
+  rangeBullet.innerHTML = rangeSlider.value;
+  if( rangeSlider.value > 99) {
+    bulletPosition = rangeSlider.value *1.1;
+  }
+  else if ( rangeSlider.value < 10) {
+   bulletPosition = rangeSlider.value * 7;
+  }
+
+   else if ( rangeSlider.value < 0) {
+    bulletPosition = -rangeSlider.value;
+   }
+   else  {
+    bulletPosition = rangeSlider.value * 1.6;
+   }
+  console.log(bulletPosition)
+  rangeBullet.style.left = (bulletPosition) + "px";
+}
 
 
 
+function handleSlider(value) {
+  console.log(value)
+  console.log(screenVideoDuration)
+  document.getElementById("screen__video").innerHTML  = formattedTime(screenVideoDuration)
+  document.getElementById("output__video").innerHTML  = formattedTime(Math.round(screenVideoDuration / value))
 
-function dumpOptionsInfo() {
-  const videoTrack = videoElem.srcObject.getVideoTracks()[0];
- 
-  console.info("Track settings:");
-  console.info(JSON.stringify(videoTrack.getSettings(), null, 2));
-  console.info("Track constraints:");
-  console.info(JSON.stringify(videoTrack.getConstraints(), null, 2));
+  selectedSpeed = value
+}
+
+function formattedTime(seconds) {
+  var helperDate = dateFns.addSeconds(new Date(0), seconds);
+  return dateFns.format(helperDate, 'mm:ss');
 }
