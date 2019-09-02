@@ -22,6 +22,7 @@
     "electron-packager": "^13.0.1"
   },
   "dependencies": {
+    "date-fns": "^2.0.1",
     "domify": "^1.4.0",
     "easytimer": "^1.1.1",
     "electron-builder-squirrel-windows": "^21.2.0",

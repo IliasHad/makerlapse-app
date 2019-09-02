@@ -62,13 +62,9 @@
 
 
 <form class="duration__form" >
-
-  <div class="form__slider">
-   <p class="form__video"><span id="screen__video"></span>><span id="output__video"></span></p> 
-    <span id='rangeValue'>0</span>
-    <input id="rangeSlider" type="range" name="" value="10" min="-10" max="200" onmousemove="handleSlider(this.value)" step="0.5">
-  </div>
-
+    <label for="minutes">Ouput Duration</label>
+    <input  type="number" placeholder="M" >
+    <input  type="number"  placeholder="S" >
     <select class="export__items">
               
         <option value="mp4">Export As MP4</option>
