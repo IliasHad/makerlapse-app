@@ -17,9 +17,9 @@
   },
   "main": "src/main.js",
   "devDependencies": {
-    "electron-packager": "^13.0.1",
+    "electron": "^6.0.7",
     "electron-builder": "^21.2.0",
-    "electron": "4.0.0"
+    "electron-packager": "^13.0.1"
   },
   "dependencies": {
     "domify": "^1.4.0",
@@ -39,7 +39,7 @@
     "uniqid": "^5.0.3"
   },
   "build": {
-    "compression":"maximum",
+    "compression": "maximum",
     "publish": [
       {
         "provider": "github",
@@ -60,13 +60,14 @@
     "win": {
       "target": [
         "squirrel",
-        "nsis", "zip"
+        "nsis",
+        "zip"
       ],
       "icon": "src/assets/icons/icon.png"
     },
     "mac": {
       "target": [
-      "dmg",
+        "dmg",
         "zip"
       ],
       "icon": "src/assets/icons/icon_512.png"
