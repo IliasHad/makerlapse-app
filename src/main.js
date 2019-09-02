@@ -11,7 +11,9 @@ app.on('ready', () => {
     height: 780,
     width: 365,
     webPreferences: {
-      devTools: true
+      devTools: true,
+        nodeIntegration: true
+      
     },
     maximizable: false,
     icon: path.join(__dirname, 'assets/icons/icon.png'),
@@ -26,9 +28,6 @@ app.on('ready', () => {
     e.preventDefault()
   });
 
- // Create the Menu
- const menu = Menu.buildFromTemplate(template);
- Menu.setApplicationMenu(menu);
  if (isDev) {
 	console.log('Running in development');
 } else {
