@@ -477,7 +477,7 @@ const getMediaStream = stream => {
   recorder.onstop = () => {
     stopTime = Date.now()
     screenVideoDuration = Math.round((stopTime - startTime) / 1000)
-    console.log(screenVideoDuration / 12)
+    console.log(Math.round(screenVideoDuration / 12))
 
     console.log(screenVideoDuration)
     console.log("#7: recorderOnStop fired");
