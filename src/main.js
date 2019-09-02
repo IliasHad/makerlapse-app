@@ -32,10 +32,12 @@ app.on('ready', () => {
 	console.log('Running in development');
 } else {
   console.log('Running in production');
-  autoUpdater.checkForUpdates()
+ 
 
 }
-
+ipcMain.on('check-updates', (args) => {
+  autoUpdater.checkForUpdates()
+})
   mainWindow.loadURL('file://' + __dirname + '/index.html')
   // mainWindow.webContents.openDevTools({mode:'undocked'})
 });
