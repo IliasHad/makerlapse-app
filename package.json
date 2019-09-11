@@ -1,7 +1,7 @@
 {
   "name": "makerlapse",
   "description": "MakerLapse",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "Ilias Haddad",
   "repository": "https://github.com/IliasHad/makerlapse-app",
   "scripts": {

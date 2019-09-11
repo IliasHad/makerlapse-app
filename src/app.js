@@ -418,7 +418,7 @@ let input
    
     .on("start", function(commandLine) {
       console.log(commandLine);
-      document.querySelector('.alert-danger-time').style.display= "none"
+     // document.querySelector('.alert-danger-time').style.display= "none"
 
     })
     .on("stderr", function(stderrLine) {
@@ -508,8 +508,10 @@ const onAccessApproved = id => {
       mandatory: {
         chromeMediaSource: "desktop",
         chromeMediaSourceId: id,
-        maxWidth:  3840,
-        maxHeight: 2160
+        minWidth:  1280,
+        maxWidth: 1920,
+        minHeight:720,
+        maxHeight: 1080,
       }
       
       }
