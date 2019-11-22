@@ -1,15 +1,22 @@
 {
   "name": "cra-electron",
   "description": "CRA + Electron sitting in a tree",
-  "author": "Kitze",
-  "version": "0.2.7",
+  "author": "Ilias Haddad",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "@ffmpeg/ffmpeg": "^0.3.0",
     "cross-env": "6.0.2",
+    "easytimer": "^1.1.1",
     "electron-is-dev": "1.1.0",
     "electron-log": "^3.0.8",
+    "ffmpeg-on-progress": "^1.0.0",
+    "node-sass": "^4.13.0",
+    "os": "^0.1.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "streamifier": "^0.1.1",
+    "uniqid": "^5.1.0",
     "update-electron-app": "^1.2.0"
   },
   "devDependencies": {
@@ -21,8 +28,40 @@
     "wait-on": "3.3.0"
   },
   "build": {
-    "publish": {
-      "provider": "github"
+    "compression": "maximum",
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "IliasHad",
+        "repo": "makerlapse-app",
+        "token": "dc40fe2c1fb9629578458f7af870a0ee2152c13e"
+      }
+    ],
+    "appId": "com.github.ilias.makerlapse-app",
+    "asar": true,
+    "productName": "Makerlapse",
+    "copyright": "Copyright © 2019 ${author}",
+    "artifactName": "${productName}.${ext}",
+    "win": {
+      "target": [
+        "squirrel",
+        "nsis",
+        "zip"
+      ],
+      "icon": "src/assets/icons/icon.png"
+    },
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "icon": "src/assets/icons/icon_512.png"
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ]
     }
   },
   "main": "public/electron.js",

@@ -13,7 +13,14 @@ require("update-electron-app")({
 });
 
 function createWindow() {
-  mainWindow = new BrowserWindow({ width: 900, height: 680, webPreferences: { nodeIntegration: true }});
+  mainWindow = new BrowserWindow({ 
+    width:365, height: 780, 
+    webPreferences: { nodeIntegration: true },
+    maximizable: false,
+    icon: path.join(__dirname, 'assets/icons/icon.png'),
+    title:"Makerlapse"
+
+  });
   mainWindow.loadURL(
     isDev
       ? "http://localhost:3000"
