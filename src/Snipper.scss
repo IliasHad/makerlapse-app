@@ -1,0 +1,62 @@
+
+html,body {
+  height: 100%;
+  width : 100%;
+  overflow:hidden;
+  margin : 0px;
+  padding : 0px;
+  background : transparent;
+}
+
+body{
+  #root{
+    height: 100%;
+    width : 100%;
+
+    .snipped-image{
+      padding: 30px;
+      .preview{
+        display: block;
+        margin: 0px auto;
+        max-width: 500px;
+        max-height: 300px;
+      }
+    }
+
+
+    .snip-controls{
+      padding-bottom: 20px;
+      margin-top: 10px;
+
+      h2{
+        img{
+          margin-right: 10px;
+        }
+      }
+
+      .close{
+        position:absolute;
+        top : 0px;
+        right: 0px;
+        width: 30px;
+        height: 30px;
+        font-size: 17px;
+        cursor: pointer;
+
+        &:hover{
+          background-color:red;
+          color:white;
+        }
+      }
+    }
+
+    .rnd-controls, .snip-controls{
+      padding-top: 30px;
+      button{
+        width: 130px;
+        margin-right: 5px;
+        margin-top: 10px;
+      }
+    }
+  }
+}

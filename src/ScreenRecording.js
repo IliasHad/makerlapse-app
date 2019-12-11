@@ -60,9 +60,9 @@ export const onAccessApproved = id => {
         mandatory: {
           chromeMediaSource: "desktop",
           chromeMediaSourceId: id,
-          minWidth: 1920,
+          minWidth: 1280,
           maxWidth: 1920,
-          minHeight: 1080,
+          minHeight: 720,
           maxHeight: 1080,
           maxFrameRate: 30,
         }

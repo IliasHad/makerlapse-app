@@ -23,8 +23,8 @@ function createWindow() {
   });
   mainWindow.loadURL(
     isDev
-      ? "http://localhost:3000"
-      : `file://${path.join(__dirname, "../build/index.html")}`
+      ? "http://localhost:3000?main"
+      : `file://${path.join(__dirname, "../build/index.html?main")}`
   );
   mainWindow.on("closed", () => (mainWindow = null));
 }

@@ -24,6 +24,8 @@ export const getSources = () => {
       if (error) console.log(error);
       let screenList = document.querySelector(".screen__items");
       let windowsList = document.querySelector(".window__items");
+      screenList.innerHTML = "";
+      windowsList.innerHTML = ""
   
       sourcesItems = sources;
       console.log(sources);

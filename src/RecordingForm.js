@@ -33,6 +33,7 @@ class Recording extends Component {
     document.querySelector(".img__container").innerHTML = "";
 
       getThumbanil(e.target.value);
+   //   getSources()
 
   }
   handleChange = checkbox => {
