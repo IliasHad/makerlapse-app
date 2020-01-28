@@ -44,7 +44,7 @@ class Snipper extends React.Component{
     initCropper(e){
        
         mainWindow = this.getCurrentWindow();
-        mainWindow.hide();
+//        mainWindow.hide();
 
         snipWindow = new BrowserWindow({
             width: screenSize.width,
@@ -188,7 +188,6 @@ class Snipper extends React.Component{
     captureScreen(coordinates,e){
         mainWindow = this.getCurrentWindow();
         console.log(coordinates)
-        mainWindow.hide();
     
         setTimeout(() => {
             

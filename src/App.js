@@ -13,7 +13,6 @@ class App extends Component {
     return (
       <div className="App">
      <ScreenRecording />
-     <Snipper />
      <ProcessingForm />
 
       </div>
