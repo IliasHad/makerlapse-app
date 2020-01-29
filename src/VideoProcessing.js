@@ -1,6 +1,6 @@
 
 
-import {screenVideoDuration, screenVideoPath, numberOfScreenShots} from "./ScreenRecording";
+import {screenVideoDuration, screenVideoPath, numberOfScreenShots} from "./ScreenRecordingWin";
 import {currentExportValue} from "./ProcessingForm";
 const { createWorker } = require('@ffmpeg/ffmpeg');
 const dialog = window.require('electron').remote.dialog

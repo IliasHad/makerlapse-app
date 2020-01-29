@@ -1,17 +1,19 @@
 
 import React, { Component } from 'react';
 import {getSources, getThumbanil} from "./getScreens";
-import {onAccessApproved, stopRecording, getRecordingType} from "./ScreenRecording";
+import {onAccessApproved, stopRecording, getRecordingType} from "./ScreenRecordingWin";
 const Timer = require("easytimer");
 const timer = new Timer();
-
-
+const ipcRenderer = window.require("electron").ipcRenderer
 class Recording extends Component {
   componentDidMount () {
 
     // Get List of screens and applications available for recording
     getSources(); 
-
+    ipcRenderer.on("on-ready", (event, os)=> {
+      console.log(os,event)
+      console.log("On Ready")
+    })
     // Add event listener to hide some uncessary UI elements when you're recording your screen
     timer.addEventListener("secondsUpdated", function(e) {
       document.querySelector('.progress-wrapper').style.display = "none"
@@ -25,6 +27,7 @@ class Recording extends Component {
     timer.addEventListener('stop', function(e) {
       document.querySelector(".contdown__timer").innerHTML = ""
     })
+   
   }
 
   changeScreens = (e) => {

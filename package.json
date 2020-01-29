@@ -6,8 +6,10 @@
   "private": true,
   "dependencies": {
     "@ffmpeg/ffmpeg": "0.6.1",
+    "aperture": "^5.2.0",
     "axios": "^0.19.0",
     "cross-env": "6.0.2",
+    "delay": "^4.3.0",
     "desktop-screenshot": "^0.1.1",
     "easytimer": "^1.1.1",
     "electron-is-dev": "1.1.0",

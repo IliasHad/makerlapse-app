@@ -11,7 +11,6 @@ const userAppPath =  app.getPath('userData');
 let settingsPath = path.join(userAppPath, "settings.json")
 
 
-
 let localStream;
 let recordedChunks = [];
 export let recorder;
