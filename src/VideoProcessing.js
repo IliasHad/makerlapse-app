@@ -1,10 +1,11 @@
 
 
-import {screenVideoDuration, screenVideoPath, numberOfScreenShots} from "./ScreenRecording";
+import {screenVideoDuration, screenVideoPath, numberOfScreenShots} from "./ScreenRecordingWin";
 import {currentExportValue} from "./ProcessingForm";
 const { createWorker } = require('@ffmpeg/ffmpeg');
 const dialog = window.require('electron').remote.dialog
 const worker = createWorker();
+const fs = require("fs")
 let outputVideoPath
 let recordingType = "mp4"
 let ScreenShotPath
@@ -14,13 +15,10 @@ let ScreenShotPath
 
 const videoProcessing = async  (defaultParms, path, input) => {
   logProgress(0.5)
-  await console.log("Start Processing...")
-  await console.log(`-i ${input} ${defaultParms}  ${path}`)
+   
   const workerLoad = await worker.load();
   await console.log(workerLoad)
-  const ffmpeg = await worker.run(`-i ${input} ${defaultParms} ${path}`);
-  await console.log(ffmpeg)
-
+  
 }
 const speedUpVideo = (defaultParms, path) => {
 

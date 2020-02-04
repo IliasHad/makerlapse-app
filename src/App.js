@@ -3,17 +3,18 @@ import './App.css';
 import "./assets/vendor/nucleo/css/nucleo.css";
 import "./assets/vendor/@fortawesome/fontawesome-free/css/all.min.css";
 import "./assets/scss/argon-dashboard-react.scss";
-import Recording from "./RecordingForm";
-import Processing from "./ProcessingForm"
-
+import ScreenRecording from "./RecordingForm"
+import ProcessingForm from "./ProcessingForm"
+import Snipper from "./Snipper"
 const {app} = window.require('electron').remote;
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-       <Recording />
-       <Processing />
+     <ScreenRecording />
+     <ProcessingForm />
+
       </div>
     );
   }

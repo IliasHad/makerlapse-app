@@ -1,17 +1,22 @@
 
 import React, { Component } from 'react';
 import {getSources, getThumbanil} from "./getScreens";
-import {onAccessApproved, stopRecording, getRecordingType} from "./ScreenRecording";
+import {onAccessApproved, stopRecording, getRecordingType} from "./ScreenRecordingWin";
 const Timer = require("easytimer");
 const timer = new Timer();
-
-
+const ipcRenderer = window.require("electron").ipcRenderer
 class Recording extends Component {
+
+  state ={
+    isLoaded: false
+  }
   componentDidMount () {
 
+    console.log("Loaded")
     // Get List of screens and applications available for recording
-    getSources(); 
-
+    const data = ipcRenderer.sendSync("get-screen-details")
+    console.log(data.screens[0].id)
+    this.setState({screens:data.screens, isLoaded: true, screenId: data.screens[0].id})
     // Add event listener to hide some uncessary UI elements when you're recording your screen
     timer.addEventListener("secondsUpdated", function(e) {
       document.querySelector('.progress-wrapper').style.display = "none"
@@ -25,55 +30,43 @@ class Recording extends Component {
     timer.addEventListener('stop', function(e) {
       document.querySelector(".contdown__timer").innerHTML = ""
     })
+   
   }
 
   changeScreens = (e) => {
     
     console.log(e.target.value);
-    document.querySelector(".img__container").innerHTML = "";
 
-      getThumbanil(e.target.value);
+      this.setState({screenId:  e.target.value})
 
   }
   handleChange = checkbox => {
     console.log("hi")
   
 
-    let recording = getRecordingType();
 
     if (checkbox === true) {
-      timer.start();
-  
       
-      let id = document.querySelector(".img__container img").id;
-      onAccessApproved(id);
-   /*   if(recording.recordingType.includes("photo")) {
-       /* intervalScreenShooting = setInterval(function() {
-          getSources()
-          takeScreenShot(id)
-          }, imagePerSecond * 1000);
-  /*
-      }
-      else {
-        onAccessApproved(id);
-      }*/
+      let id = this.state.screenId
+      let reply = ipcRenderer.sendSync('start-recording',id);
+console.log(reply)
+if(reply) {
+  timer.start()
+}
+   
+     
     }
     
     else {
-      timer.stop();
-      /*
-      if(recording.recordingType.includes("photo")) {
-     /*   clearInterval(intervalScreenShooting)
-       numberOfScreenShots =   count 
-        count = 0
-  /*
+      let reply = ipcRenderer.sendSync('stop-recording');
+
+    
+      if(reply) {
+        timer.stop()
       }
-      else {
-        stopRecording()
-  
-      }
-      */
-     stopRecording()
+      
+    
+
     }
   };
   render() {
@@ -83,16 +76,19 @@ class Recording extends Component {
 <>
 <div className="img__container"></div>
    <div className="capturer__list">
-     
-    <select className="screen__items" onChange={this.changeScreens}>
-       
-</select>
+     {(this.state.isLoaded &&
+       <select className="screen__items" onChange={this.changeScreens}>
+         <>
+         {this.state.screens.map(el => 
+  <option>{el.name}</option>
+         )}
+</>
+      
+       </select>
+      )}
+   
        
       
-    <select className="window__items" onChange={this.changeScreens}>
-       
-     
-    </select>
 
    
    </div>
