@@ -7,44 +7,24 @@
   "dependencies": {
     "@ffmpeg/ffmpeg": "0.6.1",
     "aperture": "^5.2.0",
-<<<<<<< HEAD
-    "axios": "^0.19.2",
-    "cross-env": "7.0.0",
-=======
     "axios": "^0.19.0",
     "cross-env": "6.0.2",
->>>>>>> d2125baf706a671b734e821d57b438ca14d2f6cf
     "delay": "^4.3.0",
-    "desktop-screenshot": "^0.1.1",
     "easytimer": "^1.1.1",
     "electron-is-dev": "1.1.0",
     "electron-log": "^4.0.4",
     "ffmpeg-on-progress": "^1.0.0",
-<<<<<<< HEAD
-    "jimp": "^0.9.3",
-=======
     "jimp": "^0.8.5",
->>>>>>> d2125baf706a671b734e821d57b438ca14d2f6cf
     "moment": "^2.24.0",
     "node-sass": "^4.13.1",
     "os": "^0.1.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-<<<<<<< HEAD
-    "react-rnd": "^10.1.5",
-    "screenshot-desktop": "^1.11.0",
-    "streamifier": "^0.1.1",
-    "uniqid": "^5.2.0",
-    "update-electron-app": "^1.2.0",
-    "uuid": "^3.4.0"
-=======
     "react-rnd": "^10.1.1",
-    "screenshot-desktop": "^1.10.0",
     "streamifier": "^0.1.1",
     "uniqid": "^5.1.0",
     "update-electron-app": "^1.2.0",
     "uuid": "^3.3.3"
->>>>>>> d2125baf706a671b734e821d57b438ca14d2f6cf
   },
   "devDependencies": {
     "concurrently": "5.1.0",
@@ -67,6 +47,10 @@
     "appId": "com.github.ilias.makerlapse-app",
     "asar": true,
     "productName": "Makerlapse",
+    "asarUnpack": [
+      "**/app/node_modules/ffmpeg-static/*",
+      "**/app/node_modules/ffprobe-static/*"
+    ],
     "copyright": "Copyright © 2019 ${author}",
     "artifactName": "${productName}.${ext}",
     "win": {

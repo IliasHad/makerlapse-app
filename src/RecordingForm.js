@@ -14,17 +14,9 @@ class Recording extends Component {
 
     console.log("Loaded")
     // Get List of screens and applications available for recording
-<<<<<<< HEAD
     const data = ipcRenderer.sendSync("get-screen-details")
     console.log(data.screens[0].id)
     this.setState({screens:data.screens, isLoaded: true, screenId: data.screens[0].id})
-=======
-    getSources(); 
-    ipcRenderer.on("on-ready", (event, os)=> {
-      console.log(os,event)
-      console.log("On Ready")
-    })
->>>>>>> d2125baf706a671b734e821d57b438ca14d2f6cf
     // Add event listener to hide some uncessary UI elements when you're recording your screen
     timer.addEventListener("secondsUpdated", function(e) {
       document.querySelector('.progress-wrapper').style.display = "none"
@@ -45,12 +37,7 @@ class Recording extends Component {
     
     console.log(e.target.value);
 
-<<<<<<< HEAD
       this.setState({screenId:  e.target.value})
-=======
-      getThumbanil(e.target.value);
-   //   getSources()
->>>>>>> d2125baf706a671b734e821d57b438ca14d2f6cf
 
   }
   handleChange = checkbox => {

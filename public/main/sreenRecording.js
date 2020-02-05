@@ -1,4 +1,4 @@
-const {app}= require("electron");
+const {app, desktopCapturer}= require("electron");
 const fs = require("fs")
 const os = require("os")
 const uniqid = require('uniqid');
@@ -36,17 +36,16 @@ async function getScreenInfo(){
         res({screens, audioDevice, os})
       }
       else {
-        const { desktopCapturer} =  require("electron");
        
-            desktopCapturer.getSources({types: [ "screen"]}, (error, sources) => {
-              if (error) console.log(error);
-             
-              console.log(sources);
-              if (!error)res({screens:sources, os})
-                
-               
-            });
-          };
+        desktopCapturer.getSources({ types: ['window', 'screen'] }).then(sources => {
+
+          console.log(sources)
+          res({screens:sources, os})
+
+        })
+      }
+        
+          
         
       
         
