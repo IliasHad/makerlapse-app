@@ -1,4 +1,4 @@
-const {app}= require("electron");
+const {app, desktopCapturer}= require("electron");
 const fs = require("fs")
 const os = require("os")
 const uniqid = require('uniqid');
@@ -12,6 +12,7 @@ let stopTime;
 let screenVideoDuration
 let aperture
 let macRecorder
+const {speedUpVideo} = require("./videoProccessing")
 
 if(os.platform() === "darwin") {
  aperture = require('aperture');
@@ -36,17 +37,16 @@ async function getScreenInfo(){
         res({screens, audioDevice, os})
       }
       else {
-        const { desktopCapturer} =  require("electron");
        
-            desktopCapturer.getSources({types: [ "screen"]}, (error, sources) => {
-              if (error) console.log(error);
-             
-              console.log(sources);
-              if (!error)res({screens:sources, os})
-                
-               
-            });
-          };
+        desktopCapturer.getSources({ types: ['window', 'screen'] }).then(sources => {
+
+          console.log(sources)
+          res({screens:sources, os})
+
+        })
+      }
+        
+          
         
       
         
@@ -227,6 +227,7 @@ async function getScreenInfo(){
         
          const path = await macRecorder.stopRecording()
          console.log(path)
+         speedUpVideo(path)
         }
       
         else {

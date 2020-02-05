@@ -10,7 +10,6 @@
     "axios": "^0.19.2",
     "cross-env": "7.0.0",
     "delay": "^4.3.0",
-    "desktop-screenshot": "^0.1.1",
     "easytimer": "^1.1.1",
     "electron-is-dev": "1.1.0",
     "electron-log": "^4.0.4",
@@ -52,6 +51,10 @@
     "appId": "com.github.ilias.makerlapse-app",
     "asar": true,
     "productName": "Makerlapse",
+    "asarUnpack": [
+      "**/app/node_modules/ffmpeg-static/*",
+      "**/app/node_modules/ffprobe-static/*"
+    ],
     "copyright": "Copyright © 2019 ${author}",
     "artifactName": "${productName}.${ext}",
     "win": {
