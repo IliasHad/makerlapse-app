@@ -33,7 +33,15 @@ const speedUpVideo = (path) => {
     */
    
   
-  
+   let defaultParms = [
+    "-preset ultrafast",
+    "-threads 1",
+   `-vf setpts=(1/100)*PTS`,
+    "-crf 18",// New To Get Better Quality
+    "-vsync 0", // New To Get Better Quality
+    "-movflags frag_keyframe+empty_moov",
+    "-movflags +faststart"
+  ]
   
 
      ffmpeg(input)
