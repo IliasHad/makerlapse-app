@@ -2,17 +2,13 @@ const { remote} = require("electron");
 const fs = require("fs")
 const path = require('path')
 
-const ffmpegPath = require('ffmpeg-static').path.replace('app.asar', 'app.asar.unpacked');
+const ffmpegPath = require('ffmpeg-static')
 const ffmpeg = require('fluent-ffmpeg');
-ffmpeg.setFfmpegPath(ffmpegPath);
-var ffprobePath = require("ffprobe-static").path.replace('app.asar', 'app.asar.unpacked');
-ffmpeg.setFfprobePath(ffprobePath)
-console.log(ffmpegPath);
-console.log(ffprobePath)
-const app = remote.app;
+var ffprobePath = require("ffprobe-static")
 
 
-const speedUpVideo = (path) => {
+
+const speedUpVideo = () => {
 
     /*
   Youtube video Setiings
@@ -43,13 +39,13 @@ const speedUpVideo = (path) => {
     "-movflags +faststart"
   ]
   
-
-     ffmpeg(input)
+  let output = "ilias.mp4"   
+  const command = ffmpeg(input)
       .outputOptions(defaultParms)
   
       .toFormat("mp4")
       
-      .output(path)
+      .output(output)
      
       .on("start", function(commandLine) {
         console.log(commandLine);

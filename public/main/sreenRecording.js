@@ -12,8 +12,7 @@ let stopTime;
 let screenVideoDuration
 let aperture
 let macRecorder
-const {speedUpVideo} = require("./videoProccessing")
-
+const {speedUpVideo } = require("./videoProccessing")
 if(os.platform() === "darwin") {
  aperture = require('aperture');
  macRecorder = aperture();

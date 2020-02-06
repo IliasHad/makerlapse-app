@@ -5,6 +5,7 @@ const os = require("os")
 const {getScreenInfo, startRecording, stopRecording} = require("./main/sreenRecording")
 const {capture, createScreenShotsDir } = require("./main/screenShots")
 
+const {speedUpVideo} = require("./main/videoProccessing")
 
 
 let mainWindow;
@@ -28,7 +29,6 @@ function createWindow() {
   );
   mainWindow.webContents.openDevTools()
 console.log(os.platform())
-main()
 
 // Must create folder to be able to save screenshots on this folder
 /*createScreenShotsDir()
@@ -48,7 +48,6 @@ setInterval(() => {
   })
 }, captureDelay)*/
 createWindow()
-
 
 
 
@@ -85,7 +84,6 @@ async function main() {
 }
 ipcMain.on("get-screen-details",(event, message) => {
   getScreenInfo().then(data => {
-    console.log(data)
     event.returnValue = data
   })
 })
@@ -98,7 +96,7 @@ ipcMain.on("get-screen-details",(event, message) => {
 ipcMain.on("start-recording",(event,args) => {
   startRecording(args)
     //do something with args
-    console.log(args)
+
     event.returnValue = 'Hi, sync reply';
   
 })
