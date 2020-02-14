@@ -5,6 +5,7 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "@ffmpeg/core": "^0.6.0",
     "@ffmpeg/ffmpeg": "0.6.1",
     "aperture": "^5.2.0",
     "axios": "^0.19.2",

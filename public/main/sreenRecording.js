@@ -205,9 +205,9 @@ async function getScreenInfo(){
     async function startRecording (screenId) {
   
       if(os.platform() === "darwin") {
-    
-   
-        await macRecorder.startRecording({screenId});
+        const audioDeviceId = await aperture.audioDevices()
+   console.log(audioDeviceId, "Ha howa")
+        await macRecorder.startRecording({screenId, audioDeviceId: audioDeviceId[0].id});
       }
     
       else {
@@ -226,7 +226,7 @@ async function getScreenInfo(){
         
          const path = await macRecorder.stopRecording()
          console.log(path)
-         speedUpVideo(path)
+       //  speedUpVideo("file:///private/var/folders/26/p_5xzv_s1vq5qk2h6m8w7wf80000gn/T/e7a1b1640738b1f96dff6fdf8ed3c0c4.mp4")
         }
       
         else {

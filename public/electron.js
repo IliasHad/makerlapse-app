@@ -1,14 +1,14 @@
-const {app, BrowserWindow, ipcMain}= require("electron");
+const {systemPreferences, app, BrowserWindow, ipcMain}= require("electron");
 const path = require("path");
 const isDev = require("electron-is-dev");
 const os = require("os")
 const {getScreenInfo, startRecording, stopRecording} = require("./main/sreenRecording")
 const {capture, createScreenShotsDir } = require("./main/screenShots")
-
 const {speedUpVideo} = require("./main/videoProccessing")
 
 
 let mainWindow;
+let  webCamWindow  = null
 let folder
 require("update-electron-app")({
   repo: "kitze/react-electron-example",
@@ -35,6 +35,14 @@ console.log(os.platform())
 setInterval(() =>{
   capture()
 },1000)*/
+
+systemPreferences.askForMediaAccess("camera", "microphone")
+.then(data => {
+  console.log(data)
+})
+.catch(err => {
+  console.log(err)
+})
   mainWindow.on("closed", () => (mainWindow = null));
 
  
@@ -84,6 +92,7 @@ async function main() {
 }
 ipcMain.on("get-screen-details",(event, message) => {
   getScreenInfo().then(data => {
+    console.log(data)
     event.returnValue = data
   })
 })
@@ -94,15 +103,54 @@ ipcMain.on("get-screen-details",(event, message) => {
 
 
 ipcMain.on("start-recording",(event,args) => {
+console.log(args)
   startRecording(args)
     //do something with args
-
-    event.returnValue = 'Hi, sync reply';
-  
+        event.returnValue = 'Hi, sync reply';
+  createWebcamWindow()
 })
 
 ipcMain.on("stop-recording",(event, message) => {
   stopRecording()
+  webCamWindow.hide()
   event.returnValue = 'Hi, sync reply';
-
 })
+
+
+function createWebcamWindow () {
+
+webCamWindow  = new BrowserWindow({ 
+    height: 210,
+    width: 200,
+    webPreferences: { nodeIntegration: true },
+    maximizable: false,
+    icon: path.join(__dirname, 'assets/icons/icon.png'),
+    title:"Makerlapse",
+    alwaysOnTop:true,
+    transparent: true,
+    frame: false,
+    transparent: true
+
+  });
+  webCamWindow.loadURL(
+     `file://${path.join(__dirname, "webcam.html")}`
+  );
+  app.dock.hide();
+ webCamWindow.setAlwaysOnTop(true, "floating");
+ webCamWindow.setVisibleOnAllWorkspaces(true);
+ webCamWindow.setFullScreenable(false)
+
+mainWindow.show()
+  console.log(webCamWindow.isAlwaysOnTop())
+
+  webCamWindow.webContents.openDevTools()
+
+// Must create folder to be able to save screenshots on this folder
+/*createScreenShotsDir()
+setInterval(() =>{
+  capture()
+},1000)*/
+webCamWindow.on("closed", () => (webCamWindow= null));
+
+  
+}
