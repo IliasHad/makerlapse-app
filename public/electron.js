@@ -143,7 +143,6 @@ webCamWindow  = new BrowserWindow({
 mainWindow.show()
   console.log(webCamWindow.isAlwaysOnTop())
 
-  webCamWindow.webContents.openDevTools()
 
 // Must create folder to be able to save screenshots on this folder
 /*createScreenShotsDir()
