@@ -54,12 +54,12 @@
     "artifactName": "${productName}.${ext}",
     "win": {
       "target": [
-        "squirrel",
         "nsis",
         "zip"
       ],
       "icon": "src/assets/icons/icon.png"
     },
+   
     "mac": {
       "target": [
         "dmg",
