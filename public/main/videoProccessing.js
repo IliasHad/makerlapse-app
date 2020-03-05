@@ -8,7 +8,7 @@ const worker = createWorker({
   progress: p => console.log(p)
 })
 
-const speedUpVideo = async (file) => {
+const speedUpVideo = async (webcamData) => {
 
     /*
   Youtube video Setiings
@@ -52,13 +52,15 @@ const speedUpVideo = async (file) => {
     const load = await worker.load();
       console.log(load)
   
-    const baseName = path.basename(file);
-    const write = await worker.write(baseName, file);
+      const name = 'record.mp4';
+      const write = await worker.write(name,webcamData);
   console.log(write)
-  
-    const run = await worker.run(`-i ${baseName} -preset ultrafast -vf setpts=(1/100)*PTS -crf 18 -vsync 0 -movflags frag_keyframe+empty_moov -movflags +faststart flame.mp4`);
+    
+
+
+    const run = await worker.run(`-i ${name} -c:v libx264 -preset slow -profile:v high -vf setpts=(1/100)*PTS -crf 18 -coder 1 -pix_fmt yuv420p -movflags +faststart -g 30 -bf 2 -c:a aac -b:a 384k -profile:a aac_low    flame.mp4`);
       console.log(run)
-  /*
+/*
     "-preset ultrafast",
       "-threads 1",
      `-vf setpts=(1/100)*PTS`,

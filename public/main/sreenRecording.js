@@ -2,6 +2,10 @@ const {app, desktopCapturer}= require("electron");
 const fs = require("fs")
 const os = require("os")
 const uniqid = require('uniqid');
+const FileReader = require('filereader')
+const Blob = require('node-blob');
+const streamToBlob = require('stream-to-blob')
+
 let localStream;
 let recordedChunks = [];
 let recorder;
@@ -216,8 +220,7 @@ async function getScreenInfo(){
       }
     }
     
-
-
+ 
 
     const stopRecording = async () => {
 
@@ -225,7 +228,26 @@ async function getScreenInfo(){
       
         
          const path = await macRecorder.stopRecording()
-         console.log(path)
+        
+
+
+let chunks =  [];
+var myReadStream = fs.createReadStream("/Users/mac/ilias/793a7dd777e17cc72ac24bf72d303560.mp4");
+
+
+          myReadStream.on('data', function (chunk) {
+              // no idea what to do from here
+              console.log("Start Stream")
+
+              chunks.push(chunk)
+
+          })
+          myReadStream.on('end',  async function () {
+            // no idea what to do from here
+          const buffer =  Uint8Array.from(chunks)
+          speedUpVideo(buffer)
+
+        })
        //  speedUpVideo("file:///private/var/folders/26/p_5xzv_s1vq5qk2h6m8w7wf80000gn/T/e7a1b1640738b1f96dff6fdf8ed3c0c4.mp4")
         }
       
@@ -247,3 +269,7 @@ async function getScreenInfo(){
       exports.stopRecording = stopRecording
       exports.getScreenInfo = getScreenInfo
       exports.startRecording = startRecording
+
+
+
+    

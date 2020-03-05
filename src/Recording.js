@@ -1,5 +1,5 @@
 const { desktopCapturer, ipcRenderer, remote, shell} = window.require("electron");
-const dialog = windows.require('electron').remote.dialog
+const dialog = window.require('electron').remote.dialog
 const streamifier = require("streamifier");
 const os = require("os");
 const Timer = require("easytimer");
@@ -7,7 +7,6 @@ const timer = new Timer();
 const fs = require("fs")
 const path = require('path')
 const uniqid = require('uniqid');
-const ffmpegOnProgress = require('ffmpeg-on-progress')
 
 
 const app = remote.app;

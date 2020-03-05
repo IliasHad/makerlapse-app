@@ -6,7 +6,16 @@ const {getScreenInfo, startRecording, stopRecording} = require("./main/sreenReco
 const {capture, createScreenShotsDir } = require("./main/screenShots")
 const {speedUpVideo} = require("./main/videoProccessing")
 
+const { menubar } = require('menubar');
+/*
+const mb = menubar({
+  preloadWindow: true,
+  index: isDev
+  ? "http://localhost:3000?main"
+  : `file://${path.join(__dirname, "../build/index.html?main")}`
+});
 
+*/
 let mainWindow;
 let  webCamWindow  = null
 let folder
@@ -38,7 +47,7 @@ setInterval(() =>{
 
 systemPreferences.askForMediaAccess("camera", "microphone")
 .then(data => {
-  console.log(data)
+
 })
 .catch(err => {
   console.log(err)
@@ -92,7 +101,6 @@ async function main() {
 }
 ipcMain.on("get-screen-details",(event, message) => {
   getScreenInfo().then(data => {
-    console.log(data)
     event.returnValue = data
   })
 })
@@ -103,11 +111,10 @@ ipcMain.on("get-screen-details",(event, message) => {
 
 
 ipcMain.on("start-recording",(event,args) => {
-console.log(args)
   startRecording(args)
     //do something with args
         event.returnValue = 'Hi, sync reply';
-  createWebcamWindow()
+ createWebcamWindow()
 })
 
 ipcMain.on("stop-recording",(event, message) => {
