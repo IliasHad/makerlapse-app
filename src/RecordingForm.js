@@ -57,6 +57,7 @@ if(reply) {
     }
     
     else {
+      console.log("stop")
       let reply = ipcRenderer.sendSync('stop-recording');
 
     
@@ -73,13 +74,12 @@ if(reply) {
 
 
 <>
-<div className="img__container"></div>
    <div className="capturer__list">
      {(this.state.isLoaded &&
        <select className="screen__items" onChange={this.changeScreens}>
          <>
          {this.state.screens.map(el => 
-  <option>{el.name}</option>
+  <option key={el.id}>{el.name}</option>
          )}
 </>
       

@@ -1,11 +1,11 @@
-const {app, desktopCapturer}= require("electron");
+const {app, desktopCapturer, Tray}= require("electron");
 const fs = require("fs")
 const os = require("os")
 const uniqid = require('uniqid');
 const FileReader = require('filereader')
 const Blob = require('node-blob');
 const streamToBlob = require('stream-to-blob')
-
+const moment = require('moment')
 let localStream;
 let recordedChunks = [];
 let recorder;
@@ -16,6 +16,9 @@ let stopTime;
 let screenVideoDuration
 let aperture
 let macRecorder
+const path = require("path")
+
+
 const {speedUpVideo } = require("./videoProccessing")
 if(os.platform() === "darwin") {
  aperture = require('aperture');
@@ -23,6 +26,8 @@ if(os.platform() === "darwin") {
 
 
 }
+
+
 
 
 
@@ -212,6 +217,7 @@ async function getScreenInfo(){
         const audioDeviceId = await aperture.audioDevices()
    console.log(audioDeviceId, "Ha howa")
         await macRecorder.startRecording({screenId, audioDeviceId: audioDeviceId[0].id});
+
       }
     
       else {
@@ -227,9 +233,11 @@ async function getScreenInfo(){
         if(os.platform() === "darwin") {
       
         
-         const path = await macRecorder.stopRecording()
-        
-
+         const fp = await macRecorder.stopRecording()
+         const now = Date.now()
+         fileName = moment(now).format('YYYY-MM-DD-HH-mm-ss')
+         fs.renameSync(fp, `/Users/mac/ilias/${fileName}.mp4`);
+         console.log(`Video saved in /Users/mac/ilias/${fileName}.mp4`);
 
 
        //  speedUpVideo("file:///private/var/folders/26/p_5xzv_s1vq5qk2h6m8w7wf80000gn/T/e7a1b1640738b1f96dff6fdf8ed3c0c4.mp4")

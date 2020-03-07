@@ -1,4 +1,4 @@
-const {systemPreferences, app, BrowserWindow, ipcMain, screen}= require("electron");
+const {systemPreferences, app, BrowserWindow, ipcMain, screen, Tray}= require("electron");
 const path = require("path");
 const isDev = require("electron-is-dev");
 const os = require("os")
@@ -7,10 +7,14 @@ const {capture, createScreenShotsDir } = require("./main/screenShots")
 const {speedUpVideo} = require("./main/videoProccessing")
 
 const { menubar } = require('menubar');
+const parseMilliseconds = require('parse-ms');
+let trayTimerTimeout = null;
+const padNumber = (number, character = '0') => `${character}${number}`.slice(-2);
 
 let mainWindow;
 let  webCamWindow  = null
-let folder
+let tray
+
 require("update-electron-app")({
   repo: "kitze/react-electron-example",
   updateInterval: "1 hour"
@@ -46,7 +50,26 @@ systemPreferences.askForMediaAccess("camera", "microphone")
 
  
 }
+const showTimeRecorded = () => {
+  let trayTimer = 0;
+  const interval = 1000;
 
+  const tick = () => {
+    const {hours, minutes, seconds} = parseMilliseconds(trayTimer);
+    if (hours) {
+      tray.setTitle(` ${padNumber(hours, ' ')}:${padNumber(minutes)}:${padNumber(seconds)}`);
+    } else {
+      tray.setTitle(` ${padNumber(minutes)}:${padNumber(seconds)}`);
+    }
+  }
+  trayTimerTimeout = setInterval(() => {
+    trayTimer += interval;
+    tick();
+  }, interval);
+  tick()
+
+};
+const iconPath = path.join(__dirname, "/icons/makerlapse-icon-20.png")
 app.on("ready", ()=> {
 /*
 setInterval(() => {
@@ -54,6 +77,7 @@ setInterval(() => {
     if (err) { console.error(err) }
   })
 }, captureDelay)*/
+
 const mb = menubar({
   preloadWindow: true,
   index: isDev
@@ -63,14 +87,18 @@ const mb = menubar({
     width:265, height: 300, 
     webPreferences: { nodeIntegration: true },
     maximizable: false,
-    icon: path.join(__dirname, 'assets/icons/icon.png'),
-    title:"Makerlapse"
-  }
+    title:"Makerlapse",
+  },
+  icon: iconPath
 
 });
 
 mb.on("ready", () => {
   console.log("Ready ...")
+  mb.window.openDevTools()
+
+  tray = mb.tray
+  console.log(mb.tray)
 })
 
 
@@ -121,12 +149,21 @@ ipcMain.on("start-recording",(event,args) => {
     //do something with args
         event.returnValue = 'Hi, sync reply';
  createWebcamWindow()
+ if(os.platform() === "darwin") {
+
+ showTimeRecorded()
+
+ }
 })
 
 ipcMain.on("stop-recording",(event, message) => {
   stopRecording()
   webCamWindow.hide()
   event.returnValue = 'Hi, sync reply';
+  if(os.platform() === "darwin") {
+    clearInterval(trayTimerTimeout)
+
+  }
 })
 
 

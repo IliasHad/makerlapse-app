@@ -19,6 +19,7 @@
     "node-blob": "^0.0.2",
     "node-sass": "^4.13.1",
     "os": "^0.1.1",
+    "parse-ms": "^2.1.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-rnd": "^10.1.5",
@@ -59,7 +60,6 @@
       ],
       "icon": "src/assets/icons/icon.png"
     },
-   
     "mac": {
       "target": [
         "dmg",
