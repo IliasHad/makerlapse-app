@@ -231,23 +231,7 @@ async function getScreenInfo(){
         
 
 
-let chunks =  [];
-var myReadStream = fs.createReadStream("/Users/mac/ilias/793a7dd777e17cc72ac24bf72d303560.mp4");
 
-
-          myReadStream.on('data', function (chunk) {
-              // no idea what to do from here
-              console.log("Start Stream")
-
-              chunks.push(chunk)
-
-          })
-          myReadStream.on('end',  async function () {
-            // no idea what to do from here
-            const bufferData = new Uint8Array(await (Buffer.from(chunks)))
-
-      
-          })
        //  speedUpVideo("file:///private/var/folders/26/p_5xzv_s1vq5qk2h6m8w7wf80000gn/T/e7a1b1640738b1f96dff6fdf8ed3c0c4.mp4")
         }
       

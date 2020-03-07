@@ -1,4 +1,4 @@
-const {systemPreferences, app, BrowserWindow, ipcMain}= require("electron");
+const {systemPreferences, app, BrowserWindow, ipcMain, screen}= require("electron");
 const path = require("path");
 const isDev = require("electron-is-dev");
 const os = require("os")
@@ -17,9 +17,7 @@ require("update-electron-app")({
 });
 function createWindow() {
   mainWindow = new BrowserWindow({ 
-    width:365, height: 780, 
     webPreferences: { nodeIntegration: true },
-    maximizable: false,
     icon: path.join(__dirname, 'assets/icons/icon.png'),
     title:"Makerlapse"
   });
@@ -133,6 +131,9 @@ ipcMain.on("stop-recording",(event, message) => {
 
 
 function createWebcamWindow () {
+  let display =  screen.getPrimaryDisplay();
+  let width = display.bounds.width;
+  let height = display.bounds.height;
 
 webCamWindow  = new BrowserWindow({ 
     height: 210,
@@ -144,7 +145,9 @@ webCamWindow  = new BrowserWindow({
     alwaysOnTop:true,
     transparent: true,
     frame: false,
-    transparent: true
+    transparent: true,
+    x: width - 200,
+  y: height - 210
 
   });
   webCamWindow.loadURL(
