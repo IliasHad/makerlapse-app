@@ -1,7 +1,7 @@
-import { getScreenShotsThumbnails } from "./getScreens";
+import fs from 'fs';
+import electron from 'electron';
+const remote = electron.remote || false;
 
-const {remote} = window.require('electron');
-const fs = window.require("fs")
 const path = window.require("path")
 const uniqid = window.require('uniqid');
 const app = remote.app;

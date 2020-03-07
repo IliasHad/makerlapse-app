@@ -244,10 +244,10 @@ var myReadStream = fs.createReadStream("/Users/mac/ilias/793a7dd777e17cc72ac24bf
           })
           myReadStream.on('end',  async function () {
             // no idea what to do from here
-          const buffer =  Uint8Array.from(chunks)
-          speedUpVideo(buffer)
+            const bufferData = new Uint8Array(await (Buffer.from(chunks)))
 
-        })
+      
+          })
        //  speedUpVideo("file:///private/var/folders/26/p_5xzv_s1vq5qk2h6m8w7wf80000gn/T/e7a1b1640738b1f96dff6fdf8ed3c0c4.mp4")
         }
       

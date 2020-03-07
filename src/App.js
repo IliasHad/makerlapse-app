@@ -10,7 +10,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-     <ScreenRecording />
+        <h1>Hello WORLD</h1>
+        <ScreenRecording />
      <ProcessingForm />
 
       </div>

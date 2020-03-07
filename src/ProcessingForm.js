@@ -1,7 +1,5 @@
 
 import React, { Component } from 'react';
-import {calcFrames, calcSpeed} from "./VideoProcessing"
-import {recorder, stopRecording} from "./ScreenRecordingWin"
 export let currentExportValue = "mp4"
 const Timer = require("easytimer");
 const timer = new Timer();
@@ -42,12 +40,8 @@ class ProcessingForm extends Component {
 
     }
    */
-  if(recorder.state === "active") {
-    stopRecording()
+ 
 
-  }
-
-  calcSpeed(minutes, secondes)
 
 
   }

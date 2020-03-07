@@ -7,15 +7,7 @@ const {capture, createScreenShotsDir } = require("./main/screenShots")
 const {speedUpVideo} = require("./main/videoProccessing")
 
 const { menubar } = require('menubar');
-/*
-const mb = menubar({
-  preloadWindow: true,
-  index: isDev
-  ? "http://localhost:3000?main"
-  : `file://${path.join(__dirname, "../build/index.html?main")}`
-});
 
-*/
 let mainWindow;
 let  webCamWindow  = null
 let folder
@@ -64,8 +56,24 @@ setInterval(() => {
     if (err) { console.error(err) }
   })
 }, captureDelay)*/
-createWindow()
+const mb = menubar({
+  preloadWindow: true,
+  index: isDev
+  ? "http://localhost:3000?main"
+  : `file://${path.join(__dirname, "../build/index.html?main")}`,
+  browserWindow:{ 
+    width:265, height: 300, 
+    webPreferences: { nodeIntegration: true },
+    maximizable: false,
+    icon: path.join(__dirname, 'assets/icons/icon.png'),
+    title:"Makerlapse"
+  }
 
+});
+
+mb.on("ready", () => {
+  console.log("Ready ...")
+})
 
 
 
