@@ -155,7 +155,6 @@ webCamWindow  = new BrowserWindow({
  webCamWindow.setVisibleOnAllWorkspaces(true);
  webCamWindow.setFullScreenable(false)
 
-mainWindow.show()
   console.log(webCamWindow.isAlwaysOnTop())
 
 
