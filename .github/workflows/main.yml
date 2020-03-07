@@ -1,31 +1,90 @@
-name: Makerlapse
-
-on: push
-
+name: CI
+on:
+  push:
+    branches:
+      - master
 jobs:
-  release:
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      matrix:
-        os: [macos-latest, windows-latest]
-
+  build_on_mac:
+    runs-on: macos-latest
     steps:
-      - name: Check out Git repository
-        uses: actions/checkout@v1
-
-      - name: Install Node.js, NPM and Yarn
-        uses: actions/setup-node@v1
-        with:
-          node-version: 12.14.1
-
-      - name: Build/release Electron app
-        uses: samuelmeuli/action-electron-builder@v1
-        with:
-          # GitHub token, automatically provided to the action
-          # (No need to define this secret in the repo settings)
-          github_token: ${{ secrets.github_token }}
-
-          # If the commit is tagged with a version (e.g. "v1.0.0"),
-          # release the app after building
-          release: ${{ startsWith(github.ref, 'refs/tags/v') }}
+    - uses: actions/checkout@master
+      with:
+        ref: electron
+    - uses: actions/setup-node@master
+      with:
+        node-version: 12.14.1
+    - name: see directory in electron_dist
+      run: ls ./electron
+    - name: add key to single keychain
+      run: security import ./electron/june-ai-single2-certs-electron.p12 -P ${{ secrets.CSC_KEY_PASSWORD }}
+    - name: electron mac os security identities
+      run: security find-identity -v
+    - name: Install dependencies
+      run: yarn install
+    - name: Build on MacOS
+      env:
+        ELECTRON: true
+        APP_VERSION_NUMBER: 1.0.3
+      run: yarn build
+    - name: Build Electron
+   
+      run: yarn electron:buildUnix
+    - name: see directory
+      run: ls
+    - name: check env
+      run: echo $ELECTRON $FEATHERS_URL
+    - name: see directory in electron_dist
+      run: ls ./electron_dist
+    - uses: lucyio/upload-to-release@master
+      with:
+        name: lucyio/electron
+        path: ./electron_dist
+        action: unpublished
+        release_id: 0.x.x
+        release-repo: lucyio/electron
+  
+  build_on_win:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@master
+      with:
+        ref: feature/github-actions        
+    - uses: actions/setup-node@master
+      with:
+        node-version: 12.14.1
+    - name: install node tools
+      run: npm install --global --production windows-build-tools@4.0.0
+    - name: install node-gyp
+      run: npm install --global node-gyp@latest
+    - name: Set node config to use python2.7
+      run: npm config set python python2.7
+    - name: Set node config to set msvs_version to 2015
+      run: npm config set msvs_version 2015
+    - name: Work around for Windows Server 2019
+      run: set path=%path%;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin
+    - name: Install dependencies
+      run: yarn install
+    - name: check env
+      env:
+        ELECTRON: true
+        APP_VERSION_NUMBER: 1.0.3
+      run: set
+    - name: Build on Windows
+      env:
+        ELECTRON: true
+        APP_VERSION_NUMBER: 1.0.3
+      run: yarn build
+    - name: Build Electron
+      env:
+        ELECTRON: true
+        APP_VERSION_NUMBER: 1.0.3
+      run: yarn electron:buildWin
+    - name: see directory
+      run: ls ./electron_dist/squirrel-windows
+    - uses: lucyio/upload-to-release@master
+      with:
+        name: lucyio/electron
+        path: ./electron_dist/squirrel-windows
+        action: unpublished
+        release_id: 0.5.9
+        release-repo: lucyio/electron
