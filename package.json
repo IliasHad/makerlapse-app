@@ -2,7 +2,7 @@
   "name": "cra-electron",
   "description": "CRA + Electron sitting in a tree",
   "author": "Ilias Haddad",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "private": true,
   "dependencies": {
     "@ffmpeg-installer/ffmpeg": "^1.0.20",
