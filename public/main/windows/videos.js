@@ -4,7 +4,6 @@ const isDev = require("electron-is-dev");
 const path = require("path")
 let videoWindow
 
-const tmp = require('tmp');
 const ffmpeg = require('@ffmpeg-installer/ffmpeg');
 const util = require('electron-util');
 const execa = require('execa');
@@ -27,7 +26,6 @@ let progress, estimator
       
       
       console.log("Output",outputPath)
-        console.log("Hi mothers Fuckers")
        let converter = await spawn(ffmpegPath, [
           '-i', inputPath,
           '-c:v', 'libx264',

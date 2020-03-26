@@ -45,8 +45,7 @@ const EditorPage = ({screenVideoPath}) => {
   </button> 
 
   <button className="action__item action__button" onClick={(e) => {
-  const x = e.pageX 
-  const y = e.pageY
+ 
   console.log(screenVideoPath, videoDuration, selectedMusic, outputDuration.current.value)
   ipcRenderer.sendSync("open-video-window",screenVideoPath, videoDuration, selectedMusic, outputDuration.current.value)
 }}>

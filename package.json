@@ -8,21 +8,17 @@
     "@ffmpeg-installer/ffmpeg": "^1.0.20",
     "@ffmpeg/ffmpeg": "0.6.1",
     "aperture": "^5.2.0",
-    "axios": "^0.19.2",
-    "cross-env": "7.0.0",
     "easytimer": "^1.1.1",
     "electron-is-dev": "1.1.0",
-    "electron-log": "^4.0.4",
-    "electron-store": "^5.1.1",
+    "electron-log": "^4.1.0",
+    "electron-updater": "^4.2.5",
     "electron-util": "^0.14.0",
     "execa": "^4.0.0",
     "filereader": "^0.10.3",
     "jimp": "^0.9.5",
-    "mac-windows": "^0.7.1",
     "menubar": "^8.0.0",
     "moment": "^2.24.0",
     "node-blob": "^0.0.2",
-    "node-mac-app-icon": "^1.4.0",
     "node-sass": "^4.13.1",
     "os": "^0.1.1",
     "parse-ms": "^2.1.0",
@@ -36,20 +32,26 @@
     "stream-to-blob": "^2.0.0",
     "streamifier": "^0.1.1",
     "uniqid": "^5.2.0",
-    "update-electron-app": "^1.2.0",
     "uuid": "^3.4.0",
     "youtube-mp3-downloader": "^0.6.6"
   },
   "devDependencies": {
+    "@rescripts/cli": "^0.0.14",
+    "@rescripts/rescript-env": "^0.0.12",
     "concurrently": "5.1.0",
+    "cross-env": "^7.0.2",
     "electron": "7.1.11",
     "electron-builder": "^22.3.2",
     "prettier": "^1.4.4",
     "react-scripts": "3.3.1",
-    "wait-on": "4.0.0"
+    "wait-on": "^4.0.1"
   },
   "build": {
     "compression": "maximum",
+    "directories": {
+      "buildResources": "assets"
+    },
+   
     "publish": [
       {
         "provider": "github",

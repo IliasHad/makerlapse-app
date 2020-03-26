@@ -1,5 +1,6 @@
 import React from "react"
 
+const ipcRenderer = window.require("electron").ipcRenderer
 
 
 
@@ -17,7 +18,13 @@ const Header = () => {
 
             <div className="header__right">
 
-            <i className="ni ni-cloud-download-95"></i>
+            <i className="ni ni-cloud-download-95" onClick={(e) => {
+
+const x = e.pageX 
+const y = e.pageY
+ipcRenderer.send(`display-updater-menu`, { x, y });
+
+            }}></i>
             <i className="ni ni-settings-gear-65"></i>
             <i className="ni ni-camera-compact"></i>
 

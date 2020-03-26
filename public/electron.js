@@ -1,30 +1,20 @@
-const {systemPreferences, app, BrowserWindow, ipcMain, screen, Tray, clipboard}= require("electron");
+const {systemPreferences, app, BrowserWindow, ipcMain, screen, Tray, dialog, Menu}= require("electron");
 const path = require("path");
 const isDev = require("electron-is-dev");
 const os = require("os")
 const {getScreenInfo, startRecording, stopRecording} = require("./main/screenRecording/sreenRecording")
-const {capture, createScreenShotsDir } = require("./main/screenRecording/screenShots")
-const {downloadMP3} = require("./main/common/getMusic")
-const {createMusicWindow} = require("./main/windows/music")
-const {createVideoWindow} = require("./main/windows/videos")
 const fs = require("fs")
 const { menubar } = require('menubar');
 const parseMilliseconds = require('parse-ms');
 let trayTimerTimeout = null;
 const padNumber = (number, character = '0') => `${character}${number}`.slice(-2);
-const {menu} = require("./main/common/menus")
 let mainWindow;
 let  webCamWindow  = null
 let latestScreenVideo
 let editorWindow
 let tray
 let mb
-require("update-electron-app")({
-  repo: "kitze/react-electron-example",
-  updateInterval: "1 hour"
-});
-
-
+const {checkForUpdates} =require("./main/utils/updater")
 
 
 
@@ -93,8 +83,9 @@ setInterval(() => {
 mb = menubar({
   preloadWindow: true,
   index: isDev
-  ? "http://localhost:3000?main"
-  : `file://${path.join(__dirname, "../build/index.html?main")}`,
+  
+  ? 'http://localhost:3000'
+  : `file://${path.join(__dirname, '../build/index.html')}`,
   browserWindow:{ 
     width:330, height: 536, 
     webPreferences: { nodeIntegration: true },
@@ -112,7 +103,7 @@ mb.on("ready", () => {
 
   tray = mb.tray
   console.log(mb.tray)
-  createNecessaryFiles()
+
 })
 
 
@@ -254,7 +245,7 @@ ipcMain.on(`display-app-menu`, function(e, {x, y}) {
 
 
 function  createNecessaryFiles() {
-  const musicPath = path.join(app.getAppPath(), 'music.json')
+  const musicPath = path.join(app.getAppPath(),'music', 'music.json')
   const perdifinedMusic = {
     music: [
       {
@@ -273,12 +264,37 @@ function  createNecessaryFiles() {
       }      
     ]
   }
-  fs.exists(musicPath, (excists) => {
+  fs.writeFileSync(musicPath, JSON.stringify(perdifinedMusic), "UTF-8",{'flags': 'a'});
 
-    console.log("Path", excists, !excists)
-    if(!excists) {
-      fs.writeFileSync(musicPath, JSON.stringify(perdifinedMusic))
-    }
-   
-  })
+ 
 }
+
+
+
+
+
+// Register an event listener. When ipcRenderer sends mouse click co-ordinates, show menu at that position.
+ipcMain.on(`display-updater-menu`, function(e, x, y) {
+    menu.popup({
+      x: x,
+      y: y
+    });
+
+});
+
+
+
+
+const template = [
+  {
+    label: "Update And Quit",
+    type: "checkbox",
+    click() { checkForUpdates()}
+    },
+];
+
+const menu = Menu.buildFromTemplate(template);
+Menu.setApplicationMenu(menu);
+
+
+ 

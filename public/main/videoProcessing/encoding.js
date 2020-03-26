@@ -1,7 +1,6 @@
 /* eslint-disable array-element-newline */
 'use strict';
 const path = require('path');
-const tmp = require('tmp');
 const ffmpeg = require('@ffmpeg-installer/ffmpeg');
 const util = require('electron-util');
 const execa = require('execa');
