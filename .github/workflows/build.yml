@@ -1,6 +1,11 @@
-name: Makerlapse
+name: Build/release
 
-on: push
+on:
+  push:
+    branches:
+      - master
+
+
 
 jobs:
   release:
@@ -8,7 +13,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [macos-latest, windows-latest]
+        os: [macos-latest,  windows-latest]
 
     steps:
       - name: Check out Git repository
