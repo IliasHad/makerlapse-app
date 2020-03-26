@@ -17,9 +17,8 @@ let screenVideoDuration
 let aperture
 let macRecorder
 const path = require("path")
+const {createEditorWindow} = require("../windows/editor")
 
-
-const {speedUpVideo } = require("./videoProccessing")
 if(os.platform() === "darwin") {
  aperture = require('aperture');
  macRecorder = aperture();
@@ -40,9 +39,9 @@ async function getScreenInfo(){
       if(os.platform() === "darwin") {
       
         const screens = await aperture.screens()
-        const audioDevice = await aperture.audioDevices()
-        console.log(screens, audioDevice)
-        res({screens, audioDevice, os})
+        const audioDevices = await aperture.audioDevices()
+        console.log(screens, audioDevices)
+        res({screens, audioDevices, os})
       }
       else {
        
@@ -211,12 +210,11 @@ async function getScreenInfo(){
   
   
   
-    async function startRecording (screenId) {
+    async function startRecording ({screenId, audioDeviceId}) {
   
+      
       if(os.platform() === "darwin") {
-        const audioDeviceId = await aperture.audioDevices()
-   console.log(audioDeviceId, "Ha howa")
-        await macRecorder.startRecording({screenId, audioDeviceId: audioDeviceId[0].id});
+        await macRecorder.startRecording({screenId, audioDevices: audioDeviceId});
 
       }
     
@@ -236,11 +234,13 @@ async function getScreenInfo(){
          const fp = await macRecorder.stopRecording()
          const now = Date.now()
          fileName = moment(now).format('YYYY-MM-DD-HH-mm-ss')
-         fs.renameSync(fp, `/Users/mac/ilias/${fileName}.mp4`);
+         const outputPath = `/Users/mac/ilias/${fileName}.mp4`;
+         fs.renameSync(fp, outputPath)
          console.log(`Video saved in /Users/mac/ilias/${fileName}.mp4`);
 
+         createEditorWindow(outputPath)
 
-       //  speedUpVideo("file:///private/var/folders/26/p_5xzv_s1vq5qk2h6m8w7wf80000gn/T/e7a1b1640738b1f96dff6fdf8ed3c0c4.mp4")
+
         }
       
         else {

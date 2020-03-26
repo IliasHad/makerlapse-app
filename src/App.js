@@ -1,21 +1,74 @@
-import React, { Component } from 'react';
-import './App.css';
-import "./assets/vendor/nucleo/css/nucleo.css";
-import "./assets/vendor/@fortawesome/fontawesome-free/css/all.min.css";
-import "./assets/scss/argon-dashboard-react.scss";
-import ScreenRecording from "./RecordingForm"
-import ProcessingForm from "./ProcessingForm"
-
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <ScreenRecording />
-     <ProcessingForm />
-
-      </div>
-    );
-  }
+import React ,{useEffect, useState}from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+import IndexPage from "./pages/index"
+import PreferencesPage from "./pages/preferences"
+import EditorPage from "./pages/editor"
+import MusicPage from "./pages/music"
+import VideosPage from "./pages/videos"
+const ipcRenderer = window.require("electron").ipcRenderer
+const clipboard =window.require("electron").clipboard
+const keyCodes = {
+	V: 86,
 }
 
-export default App;
+
+document.onkeydown = function(event){
+	let toReturn = true
+	if(event.ctrlKey || event.metaKey){  // detect ctrl or cmd
+		if(event.which == keyCodes.V){
+			document.activeElement.value += clipboard.readText()
+			document.activeElement.dispatchEvent(new Event('input'))
+			toReturn = false
+		}
+	}
+
+	return toReturn
+}
+// Some folks find value in a centralized route config.
+// A route config is just data. React is great at mapping
+// data into components, and <Route> is a component.
+
+// Our route config is just an array of logical "routes"
+// with `path` and `component` props, ordered the same
+// way you'd do inside a `<Switch>`.
+
+
+const App =  () => {
+
+  const [screenVideoPath, setScreenVideoPath] = useState("");
+
+ // Similar to componentDidMount and componentDidUpdate:
+ useEffect(() => {
+  // Update the document title using the browser API
+  const screenVideoPath = ipcRenderer.sendSync("get-latest-recording-video")
+  console.log(screenVideoPath)
+  setScreenVideoPath(screenVideoPath)
+
+});
+
+
+  return(
+
+ <Router>
+<div class="app">
+
+   <Route  path="/"  exact component={IndexPage}/>
+   <Route  path="/perferences" exact component={PreferencesPage}/>
+   <Route  path="/editor" exact component={() => <EditorPage screenVideoPath={screenVideoPath} />} />
+   <Route  path="/music" exact component={MusicPage}/>
+
+   <Route  path="/video" exact component={VideosPage}/>
+
+   </div>
+ </Router>
+
+  )
+
+}
+
+export default App

@@ -7,7 +7,45 @@ const worker = createWorker({
   logger: m => console.log(m),
   progress: p => console.log(p)
 })
+const ffmpeg = require('@ffmpeg-installer/ffmpeg');
+const util = require('electron-util');
+const ffmpegPath = util.fixPathForAsarUnpack(ffmpeg.path);
+const execa = require('execa');
 
+
+
+
+
+
+// `ffmpeg -i original.mp4 -vcodec libx264 -crf 27 -preset veryfast -c:a copy output.mp4`
+const convertToH264 = async inputPath => {
+  const outputPath = path.join(__dirname, "testing.mp4")
+  console.log(inputPath)
+try{
+  const {stdout, stderr} = await execa(ffmpegPath, [
+    '-i', inputPath,
+    '-an',
+    '-vcodec', 'copy',
+    
+
+    outputPath
+  ]);
+
+    stderr.on('data', data => {
+      console.log("Data is comming ...")
+     console.log(data)
+
+    })
+    stderr.on('error', console.log("Error :("));
+
+console.log(stdout)
+console.log(stderr)
+  console.log(outputPath);
+}
+ catch(err){
+   console.log(err)
+ }
+}
 const speedUpVideo = async (webcamData) => {
 
     /*
@@ -82,3 +120,4 @@ const speedUpVideo = async (webcamData) => {
   };
   
 exports.speedUpVideo = speedUpVideo
+exports.convertToH264 = convertToH264

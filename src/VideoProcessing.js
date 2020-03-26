@@ -1,6 +1,7 @@
 
 
-import {screenVideoDuration, screenVideoPath, numberOfScreenShots} from "./ScreenRecordingWin";
+
+
 import {currentExportValue} from "./ProcessingForm";
 const { createWorker } = require('@ffmpeg/ffmpeg');
 const dialog = window.require('electron').remote.dialog
@@ -20,6 +21,8 @@ const videoProcessing = async  (defaultParms, path, input) => {
   await console.log(workerLoad)
   
 }
+
+
 const speedUpVideo = (defaultParms, path) => {
 
   /*
@@ -50,10 +53,7 @@ let input
     console.log(ScreenShotPath)
     input = ScreenShotPath + "\\Makerlapse-ScreenShot-%1d.png"
   }
-  else {
-    input = screenVideoPath
-  }
-
+  
   
   videoProcessing(defaultParms, path, input);
   /*
@@ -66,9 +66,7 @@ let input
         console.log(ScreenShotPath)
         input = ScreenShotPath
       }
-      else {
-        input = screenVideoPath
-      }
+      
       console.log("Finished processing");
    
     
@@ -148,7 +146,7 @@ const addSettings = (speed) => {
     savePath()
   
   }
-  
+  /*
  export const calcFrames = (min, sec) => {
     let fps 
     let totalDuration = parseInt(sec) + ( parseInt(min) * 60)
@@ -196,3 +194,4 @@ export const logProgress = (progress, event) => {
   document.querySelector('.progress-bar').style.width = (progress * 100).toFixed()+ "%"
   
   }
+  */
