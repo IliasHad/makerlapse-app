@@ -6,7 +6,7 @@ const {createVideoWindow} = require("./videos")
 const {createMusicWindow, hideMusicWindow} = require("./music")
 let editorWindow
 let latestScreenVideo
-
+const url = require("url")
 const createEditorWindow = (screenVideoPath) =>  {
     latestScreenVideo = screenVideoPath
     editorWindow = null 
@@ -24,8 +24,14 @@ const createEditorWindow = (screenVideoPath) =>  {
     editorWindow.webContents.openDevTools()
     editorWindow.loadURL(
       isDev
-      ? "http://localhost:3000/editor"
-      : `file://${path.join(__dirname, "../build/index.html")}`
+  
+      ? 'http://localhost:3000/editor'
+      :   
+      url.format({
+        pathname: path.join(__dirname, '../build/index.html'),
+        protocol: 'file:',
+        slashes: true
+      })
     );
     
     editorWindow.on("closed", () => (webCamWindow= null));

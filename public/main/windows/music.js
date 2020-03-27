@@ -10,7 +10,7 @@ const ffmpegPath = util.fixPathForAsarUnpack(ffmpeg.path);
 //Configure YoutubeMp3Downloader with your settings
 let musicWindow
 const musicPath = path.join(app.getAppPath(),'music', 'music.json')
-
+const url = require("url")
 const createMusicWindow= () =>  {
   musicWindow = null
   musicWindow   = new BrowserWindow({ 
@@ -27,8 +27,14 @@ const createMusicWindow= () =>  {
     musicWindow.setTitle("Soundtracks")
     musicWindow.loadURL(
       isDev
-      ? "http://localhost:3000/music"
-      : `file://${path.join(__dirname, "../build/index.html")}`
+  
+      ? 'http://localhost:3000/music'
+      :   
+      url.format({
+        pathname: path.join(__dirname, '../build/index.html'),
+        protocol: 'file:',
+        slashes: true
+      })
     );
     
     musicWindow.on("closed", () => (webCamWindow= null));

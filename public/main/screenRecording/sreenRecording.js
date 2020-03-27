@@ -18,6 +18,7 @@ let aperture
 let macRecorder
 const path = require("path")
 const {createEditorWindow} = require("../windows/editor")
+const {destryWebcamAccess} = require("../windows/webcam")
 
 if(os.platform() === "darwin") {
  aperture = require('aperture');
@@ -233,10 +234,14 @@ async function getScreenInfo(){
         
          const fp = await macRecorder.stopRecording()
          const now = Date.now()
+         destryWebcamAccess()
+
          fileName = moment(now).format('YYYY-MM-DD-HH-mm-ss')
-         const outputPath = `/Users/mac/ilias/${fileName}.mp4`;
+         const outputPath = `${app.getAppPath()}/videos/${fileName}.mp4`;
+         fs.existsSync(`${app.getAppPath()}/videos`) || fs.mkdirSync(`${app.getAppPath()}/videos`);
          fs.renameSync(fp, outputPath)
-         console.log(`Video saved in /Users/mac/ilias/${fileName}.mp4`);
+         console.log(`Video saved in ${outputPath}`);
+
 
          createEditorWindow(outputPath)
 

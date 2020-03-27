@@ -9,14 +9,12 @@ const parseMilliseconds = require('parse-ms');
 let trayTimerTimeout = null;
 const padNumber = (number, character = '0') => `${character}${number}`.slice(-2);
 let mainWindow;
-let  webCamWindow  = null
-let latestScreenVideo
-let editorWindow
+const {createWebcamWindow} = require("./main/windows/webcam")
 let tray
-let mb
+let mb, webCamWindow
 const {checkForUpdates} =require("./main/utils/updater")
 
-
+const url = require("url")
 
 
 
@@ -85,7 +83,13 @@ mb = menubar({
   index: isDev
   
   ? 'http://localhost:3000'
-  : `file://${path.join(__dirname, '../build/index.html')}`,
+  :   
+  url.format({
+    pathname: path.join(__dirname, '../build/index.html'),
+    protocol: 'file:',
+    slashes: true
+  })
+,
   browserWindow:{ 
     width:330, height: 536, 
     webPreferences: { nodeIntegration: true },
@@ -160,7 +164,7 @@ ipcMain.on("start-recording",(event,args) => {
         event.returnValue = 'Hi, sync reply';
 
       if(args.isWebcam === true) {
-        createWebcamWindow()
+     webCamWindow =   createWebcamWindow()
       }
  if(os.platform() === "darwin") {
 
@@ -171,60 +175,13 @@ ipcMain.on("start-recording",(event,args) => {
 
 ipcMain.on("stop-recording",(event, message) => {
   stopRecording()
-  if(webCamWindow !== null ) {
-    webCamWindow.hide()
-
-  }
+  
   event.returnValue = 'Hi, sync reply';
   if(os.platform() === "darwin") {
     clearInterval(trayTimerTimeout)
 
   }
 })
-
-
-function createWebcamWindow () {
-  let display =  screen.getPrimaryDisplay();
-  let width = display.bounds.width;
-  let height = display.bounds.height;
-
-webCamWindow  = new BrowserWindow({ 
-    height: 200,
-    width: 200,
-    webPreferences: { nodeIntegration: true },
-    maximizable: false,
-    icon: path.join(__dirname, 'assets/icons/icon.png'),
-    title:"Makerlapse",
-    alwaysOnTop:true,
-    transparent: true,
-    frame: false,
-    x: width - 200,
-  y: height - 210
-
-  });
-  webCamWindow.loadURL(
-     `file://${path.join(__dirname, "webcam.html")}`
-  );
-  app.dock.hide();
- webCamWindow.setAlwaysOnTop(true, "floating");
- webCamWindow.setVisibleOnAllWorkspaces(true);
- webCamWindow.setFullScreenable(false)
-
-  console.log(webCamWindow.isAlwaysOnTop())
-
-
-// Must create folder to be able to save screenshots on this folder
-/*createScreenShotsDir()
-setInterval(() =>{
-  capture()
-},1000)*/
-webCamWindow.on("closed", () => (webCamWindow= null));
-
-  
-}
-
-
-
 
 
 

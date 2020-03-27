@@ -2,7 +2,7 @@
   "name": "cra-electron",
   "description": "CRA + Electron sitting in a tree",
   "author": "Ilias Haddad",
-  "version": "1.0.9",
+  "version": "1.1.0",
   "private": true,
   "dependencies": {
     "@ffmpeg-installer/ffmpeg": "^1.0.20",
@@ -32,6 +32,7 @@
     "stream-to-blob": "^2.0.0",
     "streamifier": "^0.1.1",
     "uniqid": "^5.2.0",
+    "url": "^0.11.0",
     "uuid": "^3.4.0",
     "youtube-mp3-downloader": "^0.6.6"
   },
@@ -51,15 +52,6 @@
     "directories": {
       "buildResources": "assets"
     },
-   
-    "publish": [
-      {
-        "provider": "github",
-        "owner": "IliasHad",
-        "repo": "makerlapse-app",
-        "token": "ca8bf9780d2d570bfc79c7b5bcf8f8310ce846bf"
-      }
-    ],
     "appId": "com.github.ilias.makerlapse-app",
     "productName": "Makerlapse",
     "copyright": "Copyright © 2019 ${author}",

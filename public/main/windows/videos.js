@@ -14,7 +14,7 @@ const timeRegex = /time=\s*(\d\d:\d\d:\d\d.\d\d)/gm;
 const speedRegex = /speed=\s*(-?\d+(,\d+)*(\.\d+(e\d+)?)?)/gm;
 const ffmpegPath = util.fixPathForAsarUnpack(ffmpeg.path);
 let progress, estimator
-
+const url = require("url")
 
 
 
@@ -156,8 +156,14 @@ const createVideoWindow = (screenVideoPath, screenVideoDuration , selectedMusic,
     videoWindow.webContents.openDevTools()
     videoWindow.loadURL(
       isDev
-      ? "http://localhost:3000/video"
-      : `file://${path.join(__dirname, "../build/index.html")}`
+  
+      ? 'http://localhost:3000/video'
+      :   
+      url.format({
+        pathname: path.join(__dirname, '../build/index.html'),
+        protocol: 'file:',
+        slashes: true
+      })
     );
     
     videoWindow.on("closed", () => (webCamWindow= null));
