@@ -22,6 +22,7 @@
     "electron-packager": "^13.0.1"
   },
   "dependencies": {
+    "@ffmpeg/ffmpeg": "^0.3.0",
     "date-fns": "^2.0.1",
     "domify": "^1.4.0",
     "easytimer": "^1.1.1",
@@ -34,6 +35,7 @@
     "ffmpeg-static": "^2.5.0",
     "ffprobe-static": "^3.0.0",
     "fluent-ffmpeg": "^2.1.2",
+    "moment": "^2.24.0",
     "os": "^0.1.1",
     "read-blob": "^1.1.0",
     "streamifier": "^0.1.1",

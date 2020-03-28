@@ -8,7 +8,7 @@ const fs = require("fs")
 const path = require('path')
 const uniqid = require('uniqid');
 const ffmpegOnProgress = require('ffmpeg-on-progress')
-
+const moment = require("moment")
 const ffmpegPath = require('ffmpeg-static').path.replace('app.asar', 'app.asar.unpacked');
 const ffmpeg = require('fluent-ffmpeg');
 ffmpeg.setFfmpegPath(ffmpegPath);
@@ -17,7 +17,7 @@ ffmpeg.setFfprobePath(ffprobePath)
 console.log(ffmpegPath);
 console.log(ffprobePath)
 const app = remote.app;
-const userAppPath =  app.getPath('userData');
+const userAppPath =  path.resolve("C:\\Users\\Ilias\\Desktop\\Ilias\\Makerlapse")
 let settingsPath = path.join(userAppPath, "settings.json")
 
 /*var ffmpeg = Promise.promisify(require("fluent-ffmpeg"));
@@ -281,6 +281,7 @@ const recorderOnDataAvailable = event => {
   
 };
 }
+
 const stopRecording = () => {
 
   stopTime = Date.now()
@@ -324,7 +325,8 @@ const download = () => {
   }, 100);
 };
 const saveData = (blob) => {
-  screenVideoPath =`${os.tmpdir()}\\${screenVideoName}`
+  const now = Date.now()
+  screenVideoPath =`${userAppPath}\\makerlapse-${moment(now).format('YYYY-MM-DD-HH')}.webm`
  console.log(screenVideoPath)
    var inStream;
    var reader = new FileReader();
@@ -505,14 +507,15 @@ const onAccessApproved = id => {
   .getUserMedia({
     audio: false,
     video: {
-      mandatory: {
-        chromeMediaSource: "desktop",
-        chromeMediaSourceId: id,
-        minWidth:  1280,
-        maxWidth: 1920,
-        minHeight:720,
-        maxHeight: 1080,
-      }
+          mandatory: {
+            chromeMediaSource: "desktop",
+            chromeMediaSourceId: id,
+            minWidth: 1280,
+            maxWidth: 1920,
+            minHeight: 720,
+            maxHeight: 1080,
+            maxFrameRate: 30,
+          }
       
       }
     })
@@ -570,6 +573,7 @@ const getSources = () => {
     }
   });
 };
+
 const ScreenShotPath = `${userAppPath}\\Makerlapse-Recorder-${uniqid()}`
 
 
