@@ -9,13 +9,17 @@ const parseMilliseconds = require('parse-ms');
 let trayTimerTimeout = null;
 const padNumber = (number, character = '0') => `${character}${number}`.slice(-2);
 let mainWindow;
-const {createWebcamWindow} = require("./main/windows/webcam")
+let  webCamWindow  = null
+let latestScreenVideo
+let editorWindow
 let tray
-let mb, webCamWindow
+let mb
 const {checkForUpdates} =require("./main/utils/updater")
+const Sentry = require('@sentry/electron');
 
 const url = require("url")
 
+Sentry.init({dsn: 'https://f213ce0060af47219a3efaecea6e2857@sentry.io/5177853'});
 
 
 
@@ -39,13 +43,6 @@ setInterval(() =>{
   capture()
 },1000)*/
 
-systemPreferences.askForMediaAccess("camera", "microphone")
-.then(data => {
-
-})
-.catch(err => {
-  console.log(err)
-})
   mainWindow.on("closed", () => (mainWindow = null));
 
  
@@ -158,30 +155,120 @@ ipcMain.on("get-screen-details",(event, message) => {
 
 
 ipcMain.on("start-recording",(event,args) => {
-  startRecording(args)
   console.log(args)
     //do something with args
         event.returnValue = 'Hi, sync reply';
+      if(args.isWebcam === true && os.platform() === "darwin") {
 
-      if(args.isWebcam === true) {
-     webCamWindow =   createWebcamWindow()
+    if(isDev) {
+      createWebcamWindow()
+      startRecording(args)
+      showTimeRecorded()
+
+    } 
+
+    else {
+      const isCameraAccess =    systemPreferences.getMediaAccessStatus("camera")
+
+      if(isCameraAccess !== "granted") {
+        systemPreferences.askForMediaAccess("camera") 
+        .then(isGaranted => {
+          if(isGaranted) {
+            createWebcamWindow()
+            startRecording(args)
+            showTimeRecorded()
+  
+          }
+        })
       }
- if(os.platform() === "darwin") {
+    }
+  
+       
+      }
 
- showTimeRecorded()
+      else if(args.audioDeviceId !== undefined && os.platform() === "darwin") {
+      
+      if(isDev){
+        startRecording(args)
+        showTimeRecorded()
+      } else {
+        const isMicrophoneAccess =    systemPreferences.getMediaAccessStatus("microphone")
+        if(isMicrophoneAccess !== "granted") {
+          systemPreferences.askForMediaAccess("microphone") 
+          .then(isGaranted => {
+            if(isGaranted) {
+              startRecording(args)
+              showTimeRecorded()
+    
+            }
+          })
+        }
 
- }
+      }
+      }
+     else {
+        startRecording(args)
+        showTimeRecorded()
+      }
+
 })
 
 ipcMain.on("stop-recording",(event, message) => {
   stopRecording()
-  
+  if(webCamWindow !== null ) {
+    webCamWindow.close()
+
+  }
   event.returnValue = 'Hi, sync reply';
   if(os.platform() === "darwin") {
     clearInterval(trayTimerTimeout)
 
   }
 })
+
+
+function createWebcamWindow () {
+  let display =  screen.getPrimaryDisplay();
+  let width = display.bounds.width;
+  let height = display.bounds.height;
+
+  
+webCamWindow  = new BrowserWindow({ 
+    height: 200,
+    width: 200,
+    webPreferences: { nodeIntegration: true },
+    maximizable: false,
+    icon: path.join(__dirname, 'assets/icons/icon.png'),
+    title:"Makerlapse",
+    alwaysOnTop:true,
+    transparent: true,
+    frame: false,
+    x: width - 200,
+  y: height - 210
+
+  });
+  webCamWindow.loadURL(
+     `file://${path.join(__dirname, "webcam.html")}`
+  );
+  app.dock.hide();
+ webCamWindow.setAlwaysOnTop(true, "floating");
+ webCamWindow.setVisibleOnAllWorkspaces(true);
+ webCamWindow.fullScreenable = false
+  console.log(webCamWindow.isAlwaysOnTop())
+
+
+// Must create folder to be able to save screenshots on this folder
+/*createScreenShotsDir()
+setInterval(() =>{
+  capture()
+},1000)*/
+webCamWindow.on("closed", () => (webCamWindow= null));
+
+  
+}
+
+
+
 
 
 
@@ -245,7 +332,7 @@ ipcMain.on(`display-updater-menu`, function(e, x, y) {
 const template = [
   {
     label: "Update And Quit",
-    type: "checkbox",
+    type: "normal",
     click() { checkForUpdates()}
     },
 ];

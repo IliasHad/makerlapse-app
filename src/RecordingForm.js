@@ -85,7 +85,8 @@ if(reply) {
     }
   };
   handleMicrophone = (checked) => {
-    if (checked ===  true) {
+    console.log("Mic", checked)
+    if (checked ===  false) {
 
       this.setState({audioDeviceId: undefined})
 

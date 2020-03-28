@@ -40,16 +40,7 @@ document.onkeydown = function(event){
 
 const App =  () => {
 
-  const [screenVideoPath, setScreenVideoPath] = useState("");
 
- // Similar to componentDidMount and componentDidUpdate:
- useEffect(() => {
-  // Update the document title using the browser API
-  const screenVideoPath = ipcRenderer.sendSync("get-latest-recording-video")
-  console.log(screenVideoPath)
-  setScreenVideoPath(screenVideoPath)
-
-});
 
 
   return(
@@ -59,7 +50,7 @@ const App =  () => {
 
    <Route  path="/"  exact component={IndexPage}/>
    <Route  path="/perferences" exact component={PreferencesPage}/>
-   <Route  path="/editor" exact component={() => <EditorPage screenVideoPath={screenVideoPath} />} />
+   <Route  path="/editor" exact component={EditorPage} />
    <Route  path="/music" exact component={MusicPage}/>
 
    <Route  path="/video" exact component={VideosPage}/>

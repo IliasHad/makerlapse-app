@@ -4,13 +4,20 @@ const isDev = require("electron-is-dev");
 const path = require("path")
 const {createVideoWindow} = require("./videos")
 const {createMusicWindow, hideMusicWindow} = require("./music")
-let editorWindow
+let editorWindow = null 
 let latestScreenVideo
+const log = require('electron-log');
+
 const url = require("url")
 const createEditorWindow = (screenVideoPath) =>  {
     latestScreenVideo = screenVideoPath
-    editorWindow = null 
-    editorWindow  = new BrowserWindow({ 
+
+    log.info("Create Editor Window Is Called")
+
+    if(editorWindow !== null ) {
+     editorWindow.close()
+  
+    }    editorWindow  = new BrowserWindow({ 
       height: 488,
       width: 691,
       webPreferences: { nodeIntegration: true,  webSecurity: false
@@ -33,9 +40,10 @@ const createEditorWindow = (screenVideoPath) =>  {
         slashes: true
       })
     );
-    
+
     editorWindow.on("closed", () => (webCamWindow= null));
-    
+    log.info("Create Editor Window Is Finished")
+
     
     
     }

@@ -8,11 +8,15 @@ const fs = require("fs")
 const ffmpeg = require('@ffmpeg-installer/ffmpeg');
 const ffmpegPath = util.fixPathForAsarUnpack(ffmpeg.path);
 //Configure YoutubeMp3Downloader with your settings
-let musicWindow
+let musicWindow = null
 const musicPath = path.join(app.getAppPath(),'music', 'music.json')
 const url = require("url")
 const createMusicWindow= () =>  {
-  musicWindow = null
+
+  if(musicWindow !== null ) {
+    musicWindow.close()
+
+  }
   musicWindow   = new BrowserWindow({ 
       height: 488,
       width: 380,

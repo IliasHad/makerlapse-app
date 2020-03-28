@@ -9,14 +9,6 @@
  */
 const { dialog } = require('electron')
 const { autoUpdater } = require('electron-updater')
-const log = require('electron-log');
-
-
-
-autoUpdater.logger = log;
-autoUpdater.logger.transports.file.level = 'info';
-log.info('App starting...');
-
 
 let updater
 autoUpdater.autoDownload = false
@@ -43,9 +35,6 @@ autoUpdater.on('update-available', () => {
 })
 
 autoUpdater.on('update-not-available', () => {
-
-    log.info('Update not available.');
-
   dialog.showMessageBox({
     title: 'No Updates',
     message: 'Current version is up-to-date.'
@@ -55,7 +44,6 @@ autoUpdater.on('update-not-available', () => {
 })
 
 autoUpdater.on('update-downloaded', () => {
-    log.info('Update available.');
   dialog.showMessageBox({
     title: 'Install Updates',
     message: 'Updates downloaded, application will be quit for update...'
@@ -70,4 +58,4 @@ function checkForUpdates (menuItem, focusedWindow, event) {
   updater.enabled = false
   autoUpdater.checkForUpdates()
 }
-module.exports.checkForUpdates = checkForUpdates
+exports.checkForUpdates = checkForUpdates

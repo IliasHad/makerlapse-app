@@ -2,7 +2,7 @@
 const {BrowserWindow, ipcMain} = require("electron")
 const isDev = require("electron-is-dev");
 const path = require("path")
-let videoWindow
+let videoWindow = null 
 
 const ffmpeg = require('@ffmpeg-installer/ffmpeg');
 const util = require('electron-util');
@@ -123,8 +123,10 @@ const url = require("url")
    
 
 const createVideoWindow = (screenVideoPath, screenVideoDuration , selectedMusic,outputDuration) =>  {
-    videoWindow = null 
+  if(videoWindow !== null ) {
+   videoWindow.close()
 
+  }
     console.log("Output Duration", outputDuration)
    let seconds =    moment.duration(`00:${outputDuration}`).asSeconds()
    let milliseconds =     moment.duration(`00:${outputDuration}`).asMilliseconds()

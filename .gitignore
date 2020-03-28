@@ -24,3 +24,4 @@ yarn-error.log*
 yarn.lock
 .png
 *.mp4
+/videos

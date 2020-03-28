@@ -18,7 +18,7 @@ let aperture
 let macRecorder
 const path = require("path")
 const {createEditorWindow} = require("../windows/editor")
-const {destryWebcamAccess} = require("../windows/webcam")
+const log = require('electron-log');
 
 if(os.platform() === "darwin") {
  aperture = require('aperture');
@@ -212,8 +212,9 @@ async function getScreenInfo(){
   
   
     async function startRecording ({screenId, audioDeviceId}) {
-  
-      
+
+       console.log("Screen Id", screenId, "Audio Device Id")
+
       if(os.platform() === "darwin") {
         await macRecorder.startRecording({screenId, audioDevices: audioDeviceId});
 
@@ -234,16 +235,15 @@ async function getScreenInfo(){
         
          const fp = await macRecorder.stopRecording()
          const now = Date.now()
-         destryWebcamAccess()
-
          fileName = moment(now).format('YYYY-MM-DD-HH-mm-ss')
-         const outputPath = `${app.getAppPath()}/videos/${fileName}.mp4`;
-         fs.existsSync(`${app.getAppPath()}/videos`) || fs.mkdirSync(`${app.getAppPath()}/videos`);
+         const outputPath = `${app.getAppPath()}/video/${fileName}.mp4`;
+         fs.existsSync(`${app.getAppPath()}/video`) || fs.mkdirSync(`${app.getAppPath()}/video`);
          fs.renameSync(fp, outputPath)
-         console.log(`Video saved in ${outputPath}`);
-
-
          createEditorWindow(outputPath)
+
+         console.log(`Video saved in ${outputPath}`);
+         
+        
 
 
         }
