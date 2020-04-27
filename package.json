@@ -5,11 +5,21 @@
   "version": "0.2.7",
   "private": true,
   "dependencies": {
+    "@ffmpeg-installer/ffmpeg": "^1.0.20",
     "cross-env": "6.0.2",
+    "del": "^5.1.0",
     "electron-is-dev": "1.1.0",
     "electron-log": "^3.0.8",
+    "electron-util": "^0.14.1",
+    "execa": "^4.0.0",
+    "menubar": "^8.0.1",
+    "moment": "^2.24.0",
+    "pretty-ms": "^6.0.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-icons": "^3.10.0",
+    "react-router-dom": "^5.1.2",
+    "screenshot-desktop": "^1.12.0",
     "update-electron-app": "^1.2.0"
   },
   "devDependencies": {
@@ -35,7 +45,7 @@
     "electron-build": "electron-builder",
     "release": "yarn react-build && electron-builder --publish=always",
     "build": "yarn react-build && yarn electron-build",
-    "start": "concurrently \"cross-env BROWSER=none yarn react-start\" \"wait-on http://localhost:3000 && electron .\""
+    "start": "concurrently \"cross-env PORT=9000 BROWSER=none yarn react-start\" \"wait-on http://localhost:9000 && electron .\""
   },
   "browserslist": {
     "production": [

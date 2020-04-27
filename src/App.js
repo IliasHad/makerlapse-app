@@ -1,24 +1,43 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import logo from "./logo.svg";
+import "./App.css";
 
-const {app} = window.require('electron').remote;
-
-class App extends Component {
-  render() {
-    return (
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { IndexPage } from "./pages/index";
+import { PreferencesPage } from "./pages/preferences";
+import { MusicPage } from "./pages/music";
+import { VideoPage } from "./pages/video";
+const { app } = window.require("electron").remote;
+const { ipcRenderer } = window.require("electron");
+const App = () => {
+  return (
+    <Router>
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>React + Electron = <span role="img" aria-label="love">😍</span></h2>
-        </div>
-        <p className="App-intro">
-          <b> Release 0.2.7 </b>
-          Version: {app.getVersion()}
-        </p>
+        <Switch>
+          <Route path="/" component={IndexPage} exact />
+          <Route path="/preferences" component={PreferencesPage} exact />
+          <Route path="/music" component={MusicPage} exact />
+          <Route path="/video" component={VideoPage} exact />
+        </Switch>
+        {/*
+
+
+
+<button onClick={() => {
+   let msg =  ipcRenderer.sendSync("start-screenshoting")
+   console.log(msg)
+
+}}>Start ScreenShooting :)</button>
+     
+
+<button onClick={() => {
+  let msg = ipcRenderer.sendSync("stop-screenshoting")
+  console.log(msg)
+}}>Stop ScreenShooting :)</button>
+*/}
       </div>
-    );
-  }
-}
+    </Router>
+  );
+};
 
 export default App;

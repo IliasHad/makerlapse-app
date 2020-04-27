@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags always come first -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Snipper</title>
+</head>
+
+<body style="-webkit-app-region: drag">
+    <style>
+    #camera {
+      width: 100%;
+        height: auto;
+        background: transparent;
+        border-radius: 50%;
+    }
+</style>
+
+  
+  <video id="camera" autoPlay> </video>
+<script>
+  const ipcRenderer = window.require("electron").ipcRenderer
+
+
+let streams
+navigator.mediaDevices.getUserMedia({video: true})
+    .then(function(stream) {
+      streams = stream
+      document.getElementById('camera').srcObject = stream;
+      console.log(streams)
+    }).catch(function() {
+      alert('could not connect stream');
+    });
+
+
+    ipcRenderer.on("destroy-webcam", (e) => {
+      console.log(streams)
+      streams.getTracks().forEach(track => track.stop())
+    })
+</script>
+</body>
+
+</html>
