@@ -73,6 +73,7 @@ app.on("ready", () => {
 
   mb.on("ready", () => {
     console.log("Ready ...");
+    mb.window.openDevTools()
 
     tray = mb.tray;
   });

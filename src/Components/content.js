@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { FcWebcam } from "react-icons/fc";
-import { MdScreenShare } from "react-icons/md";
-import { RiCameraOffLine, RiCameraLine } from "react-icons/ri";
+import { MdScreenShare, MdPauseCircleFilled } from "react-icons/md";
+
+import {
+  RiCameraOffLine,
+  RiCameraLine,
+  RiRecordCircleLine,
+} from "react-icons/ri";
+
 // In the renderer process.
 const { desktopCapturer } = window.require("electron");
 const { ipcRenderer } = window.require("electron");
@@ -11,6 +16,8 @@ export const Content = () => {
   const [selectedWindow, setSelectedWindow] = useState(null);
   const [selectedScreen, setSelectedScreen] = useState(null);
   const [isRecording, setIsRecording] = useState(null);
+
+  const [isPaused, setIsPaused] = useState(false);
 
   const [windowList, setWindowList] = useState([]);
   const [screenList, setScreenList] = useState([]);
@@ -22,7 +29,6 @@ export const Content = () => {
 
         const windowsItems = sources.filter((el) => el.id.includes("window"));
 
-     
         setWindowList(windowsItems);
         setScreenList(screenItems);
         console.log(selectedWindow);
@@ -31,35 +37,38 @@ export const Content = () => {
   }, []);
 
   useEffect(() => {
-    let windowId = null
-    let screenId = null
+    let windowId = null;
+    let screenId = null;
     if (isRecording === true) {
-
-      if(selectedWindow !== null) {
-         windowId = windowList
-        .filter((el) => el.name.toLowerCase() === selectedWindow.toLowerCase())[0] 
-        .id.split("window:")[1]
-        .split(":0")[0];
-
+      if (selectedWindow !== null) {
+        windowId = windowList
+          .filter(
+            (el) => el.name.toLowerCase() === selectedWindow.toLowerCase()
+          )[0]
+          .id.split("window:")[1]
+          .split(":0")[0];
       }
-      if(selectedScreen !== null) {
-
-      screenId = screenList
-      .filter((el) => el.name === selectedScreen)[0]
-      .id.split("screen:")[1]
-      .split(":0")[0];
-
+      if (selectedScreen !== null) {
+        screenId = screenList
+          .filter((el) => el.name === selectedScreen)[0]
+          .id.split("screen:")[1]
+          .split(":0")[0];
       }
-      console.log(parseInt(windowId))
+      console.log(parseInt(windowId));
       ipcRenderer.sendSync("start-screenshoting", {
-        selectedScreen:  parseInt(screenId),
-        selectedWindow:  parseInt(windowId),
+        selectedScreen: parseInt(screenId),
+        selectedWindow: parseInt(windowId),
         selectOption,
       });
     } else if (isRecording === false) {
       ipcRenderer.sendSync("stop-screenshoting");
     }
   }, [isRecording]);
+
+  useEffect(() => {
+    console.log(isPaused);
+  }, [isPaused]);
+
   return (
     <div className="content__container">
       <div className="option__container">
@@ -127,7 +136,31 @@ export const Content = () => {
             setIsRecording(e.target.checked);
           }}
         />
+
         <label htmlFor="record" className="record__video"></label>
+
+        <div className="action__pause">
+          {!isPaused && isRecording && (
+            <span
+              onClick={(e) => {
+                setIsPaused(true);
+                ipcRenderer.sendSync("pause-screenshoting");
+              }}
+            >
+              <MdPauseCircleFilled size="2em" color="grey" />
+            </span>
+          )}
+          {isPaused && isRecording && (
+            <span
+              onClick={() => {
+                setIsPaused(false);
+                ipcRenderer.sendSync("resume-screenshoting");
+              }}
+            >
+              <RiRecordCircleLine size="2em" color="grey" />
+            </span>
+          )}
+        </div>
       </div>
     </div>
   );

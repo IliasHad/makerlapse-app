@@ -1,7 +1,6 @@
 import React, { ReactComponent } from "react";
 import { Layout } from "../Components/layout";
-import { Header } from "../Components/header";
-import { Link } from "react-router-dom";
+
 import { ReactComponent as MusicSVG } from "../music.svg";
 import { MdClose } from "react-icons/md";
 const { ipcRenderer } = window.require("electron");
@@ -12,7 +11,7 @@ export const MusicPage = () => {
         <div className="header__title">Music</div>
         <div className="header__quick-options">
           <button>
-            <MdClose onClick={()=> ipcRenderer.send("hide-music")} />
+            <MdClose onClick={() => ipcRenderer.send("hide-music")} />
           </button>
         </div>
       </header>
@@ -35,13 +34,13 @@ export const MusicPage = () => {
         <div>
           <button
             className="button button-primary"
-            onClick={() => ipcRenderer.send("upload-soudtrack")}
+            onClick={() => ipcRenderer.sendSync("upload-soudtrack")}
           >
             Upload
           </button>
           <button
             className="button button-secondary"
-            onClick={() => ipcRenderer.send("skip-music")}
+            onClick={() => ipcRenderer.sendSync("skip-music")}
           >
             Skip
           </button>
