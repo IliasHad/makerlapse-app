@@ -22,7 +22,7 @@ I built Marketplace to document my journey as newbie indie maker and self-taught
 * [Twiiter](https://twitter.com/IliasHaddad3)
 * [Indie Hackers](https://www.indiehackers.com/Iliashad/)
 * [Instagram](https://www.instagram.com/iliashaddad3)
-* [Instagram](https://www.buymeacoffee.com/iliashaddad3)
+* [Support Makerlapse by buying me a coffee!](https://www.buymeacoffee.com/iliashaddad3)
 
 
 
