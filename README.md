@@ -19,7 +19,7 @@ I'm a self-taught developer and I love watching speed coding videos and see how 
 I built Marketplace to document my journey as newbie indie maker and self-taught developer for my #12SideProjectsIn3Months Challenge
 
  
-* [Twiiter](https://twitter.com/IliasHaddad3)
+* [Twitter](https://twitter.com/IliasHaddad3)
 * [Indie Hackers](https://www.indiehackers.com/Iliashad/)
 * [Instagram](https://www.instagram.com/iliashaddad3)
 * [Support Makerlapse by buying me a coffee!](https://www.buymeacoffee.com/iliashaddad3)
