@@ -45,7 +45,7 @@ select {
   outline: 0;
   box-shadow: none;
   border: 0 !important;
-  background: rgba(97, 100, 255, .8);
+  background: rgba(97, 100, 255, 0.8);
   background-image: none;
   font-size: 0.8rem;
 }
@@ -135,6 +135,7 @@ select {
 
 .record__btn {
   display: none;
+  grid-area: record;
 }
 
 .record__video:after {
@@ -174,13 +175,11 @@ select {
   color: #eceded;
   background-color: #6163ff;
   border-radius: 5px;
-
 }
 .button.button-secondary {
-  color: #ECEDED;
-  background-color: #25282C;
+  color: #eceded;
+  background-color: #25282c;
   border-radius: 5px;
-
 }
 
 .button {
@@ -207,7 +206,6 @@ select {
   transition: background 0.15s ease;
 }
 
-
 .header__container {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -225,7 +223,7 @@ a {
   text-align: center;
   display: flex;
   flex-direction: column;
-  justify-items:center;
+  justify-items: center;
   align-items: center;
 }
 .empty-state svg {
@@ -247,7 +245,7 @@ a {
   align-items: center;
   background-color: #fff;
   border-radius: 50%;
-  content: attr(data-progress) '%';
+  content: attr(data-progress) "%";
   display: -webkit-box;
   display: flex;
   font-size: 1rem;
@@ -265,13 +263,70 @@ a {
 }
 
 .progress-circle[data-progress="10"]:after {
-  background-image: linear-gradient(90deg, #ddd 50%, transparent 50%, transparent), linear-gradient(126deg, #6163ff 50%, #ddd 50%, #ddd);
+  background-image: linear-gradient(
+      90deg,
+      #ddd 50%,
+      transparent 50%,
+      transparent
+    ),
+    linear-gradient(126deg, #6163ff 50%, #ddd 50%, #ddd);
 }
 .progress-circle:after {
   background-color: #0083ff;
   border-radius: 50%;
-  content: '';
+  content: "";
   display: inline-block;
   height: 100%;
   width: 100%;
+}
+.actions {
+  position: relative;
+}
+.pause__btn {
+  position: absolute;
+  top: 30%;
+  bottom: 30%;
+  left: 5%;
+}
+
+.settings__label {
+  font-size: 0.9rem;
+  justify-self: start;
+}
+
+.settings {
+  padding: 2rem 0;
+}
+.settings__option input {
+  background-color: #fff;
+  border-radius: 0.375rem;
+  padding: 0.5rem 0.35rem;
+  border: 1px solid #d2d6dc;
+  width: 2rem;
+  justify-self: end;
+}
+
+.settings__option {
+  margin-top: 1rem;
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr max-content;
+  align-items: center;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+}
+.actions {
+  display: grid;
+  grid-template-columns: 2em 1fr;
+  grid-template-areas: "pause record";
+  align-items: center;
+}
+.action__pause {
+  grid-area: pause;
+  margin: auto;
+  text-align: center;
+  margin-left: 80%;
 }

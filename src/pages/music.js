@@ -12,7 +12,7 @@ export const MusicPage = () => {
         <div className="header__title">Music</div>
         <div className="header__quick-options">
           <button>
-            <MdClose onClick={()=> ipcRenderer.send("hide-music")} />
+            <MdClose onClick={() => ipcRenderer.send("hide-music")} />
           </button>
         </div>
       </header>
@@ -35,13 +35,13 @@ export const MusicPage = () => {
         <div>
           <button
             className="button button-primary"
-            onClick={() => ipcRenderer.send("upload-soudtrack")}
+            onClick={() => ipcRenderer.sendSync("upload-soudtrack")}
           >
             Upload
           </button>
           <button
             className="button button-secondary"
-            onClick={() => ipcRenderer.send("skip-music")}
+            onClick={() => ipcRenderer.sendSync("skip-music")}
           >
             Skip
           </button>

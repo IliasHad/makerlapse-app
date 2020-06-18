@@ -6,7 +6,7 @@ import { Header } from "../Components/header";
 export const IndexPage = () => {
   return (
     <Layout>
-      <Header title="Makerlapse" />
+      <Header title="Makerlapse" returnPath="/preferences" />
 
       <Content />
 

@@ -1,9 +1,9 @@
 import React from "react"
 
-import {MdSettings} from "react-icons/md"
+import {MdSettings, MdHome} from "react-icons/md"
 import {Link} from "react-router-dom"
 
-export const Header = ({title}) => {
+export const Header = ({title, returnPath}) => {
 
 
     return (
@@ -14,9 +14,16 @@ export const Header = ({title}) => {
 {title}
           </div>
           <div className="header__quick-options">
-<Link to="/preferences">
+          <Link to={returnPath}>
 
-<MdSettings />
+            {returnPath === "/" ?
+<MdHome />
+            :
+            <MdSettings />
+
+            
+            }
+
 </Link>
 
           </div>
