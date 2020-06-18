@@ -17,19 +17,19 @@ function createVideoWindow() {
       : `file://${path.join(__dirname, "../build/index.html")}`
   );
 
+  videoWindow.webContents.openDevTools();
+
   videoWindow.on("closed", () => (videoWindow = null));
 }
 
-function sendProgressData(progress, outputPath) {
-    videoWindow.webContents.send("progress-update", progress, outputPath)
-
+function sendProgressData(progress, outputPath, isDone) {
+  videoWindow.webContents.send("progress-update", progress, outputPath, isDone);
 }
 
-
 function hideVideoWindow() {
-    videoWindow.close()
+  videoWindow.close();
 }
 
 exports.createVideoWindow = createVideoWindow;
-exports.sendProgressData = sendProgressData
-exports.hideVideoWindow = hideVideoWindow
+exports.sendProgressData = sendProgressData;
+exports.hideVideoWindow = hideVideoWindow;

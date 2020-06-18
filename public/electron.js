@@ -20,6 +20,12 @@ const {
 } = require("./windows/music");
 const { speedUpVideo } = require("./main/videoProcessing");
 const { hideVideoWindow, createVideoWindow } = require("./windows/video");
+const Store = require("electron-store");
+
+const store = new Store();
+
+const frameRate = store.get("frameRate") || 30;
+
 /*
 require("update-electron-app")({
   repo: "kitze/react-electron-example",
@@ -29,9 +35,11 @@ require("update-electron-app")({
 */
 let inputPath;
 let time = 0;
+let selectedScreenId;
+let selectedWindowId;
 
 const now = Date.now();
-let folder = moment(now).format("YYYY-MM-DD-HH-mm-ss");
+let folder;
 
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
@@ -73,9 +81,17 @@ app.on("ready", () => {
 
   mb.on("ready", () => {
     console.log("Ready ...");
-    mb.window.openDevTools()
 
     tray = mb.tray;
+  });
+
+  const { powerMonitor } = require("electron");
+  powerMonitor.on("resume", () => {
+    console.log("The system is going to sleep");
+    if (webCamWindow !== null) {
+      webCamWindow.close();
+      createWebcamWindow();
+    }
   });
 });
 
@@ -83,11 +99,16 @@ ipcMain.on(
   "start-screenshoting",
   (event, { selectedScreen, selectedWindow, selectOption }) => {
     event.returnValue = "Start ScreenShoting";
+    frameCount = 0;
+    selectedScreenId = selectedScreen;
+    selectedWindowId = selectedWindow;
+    folder = moment(now).format("YYYY-MM-DD-HH-mm-ss");
 
     console.log(selectedWindow);
     if (selectOption === "screen-only") {
       intereval = setInterval(() => {
         frameCount += 1;
+
         showEstimatedTime(frameCount);
         capture(folder, selectedScreen, selectedWindow);
       }, 1000);
@@ -115,8 +136,8 @@ ipcMain.on("stop-screenshoting", (event) => {
 
   fs.readdir(inputPath, (error, files) => {
     frameCount = files.length; // return the number of files
-    console.log(frameCount);
-    time = (frameCount / 30) * 1000;
+    console.log(frameCount, frameRate);
+    time = (frameCount / frameRate) * 1000;
     createMusicWindow(inputPath, time);
   });
 });
@@ -151,32 +172,70 @@ function createWebcamWindow() {
 }
 
 function showEstimatedTime(frameCount) {
-  let time = frameCount / 30;
+  let time = frameCount / frameRate;
   console.log(frameCount, time);
-  let estimatedTime = moment()
-    .seconds(time)
+  var duration = moment
+    .utc(moment.duration(time, "seconds").asMilliseconds())
     .format("mm:ss");
-  tray.setTitle(estimatedTime);
+
+  console.log(duration);
+
+  tray.setTitle(duration);
 }
 
 ipcMain.on("upload-soudtrack", (event) => {
   openMusicDialog();
+  event.returnValue = "Upload Soundtarck";
 });
 
 ipcMain.on("skip-music", (e) => {
+  e.reply("asynchronous-reply");
   hideMusicWindow();
+  createVideoWindow();
+  console.log(inputPath, time);
+  speedUpVideo(inputPath, time, null);
 });
 
 ipcMain.on("play-video", (e, path) => {
+  e.reply("asynchronous-reply");
   shell.openItem(path);
 });
 
 ipcMain.on("hide-music", (e) => {
+  e.reply("asynchronous-reply");
   hideMusicWindow();
-  createVideoWindow();
-  speedUpVideo(inputPath, time);
 });
 
 ipcMain.on("hide-video", (e) => {
+  e.reply("asynchronous-reply");
   hideVideoWindow();
+});
+ipcMain.on("open-video", (e, path) => {
+  console.log(path);
+  e.reply("asynchronous-reply");
+  shell.showItemInFolder(path);
+});
+ipcMain.on("get-preferences", (e) => {
+  e.returnValue = frameRate;
+});
+ipcMain.on("udpate-preferences", (e, frameRate) => {
+  store.set("frameRate", frameRate);
+  e.reply(store.get("frameRate"));
+});
+
+ipcMain.on("pause-screenshoting", (event) => {
+  event.returnValue = "Pause ScreenShoting";
+  console.log("Pause Recording");
+  clearInterval(intereval);
+  webCamWindow.close();
+});
+ipcMain.on("resume-screenshoting", (event) => {
+  event.returnValue = "Resume ScreenShoting";
+  createWebcamWindow();
+  intereval = setInterval(() => {
+    frameCount += 1;
+
+    showEstimatedTime(frameCount);
+    capture(folder, selectedScreenId, selectedWindowId);
+  }, 1000);
 });

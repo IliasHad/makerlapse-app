@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Layout } from "../Components/layout";
 import { Header } from "../Components/header";
 import { Link } from "react-router-dom";
@@ -11,15 +11,13 @@ export const PreferencesPage = () => {
     ipcRenderer.send("udpate-preferences", frameCount);
   };
 
-
-
   useEffect(() => {
     setFrameCount(ipcRenderer.sendSync("get-preferences"));
   }, []);
   const [frameCount, setFrameCount] = useState(30);
   return (
     <Layout>
-      <Header title="Settings"  returnPath="/" />
+      <Header title="Settings" returnPath="/" />
 
       <form className="settings" onSubmit={handleSubmit}>
         <div className="settings__option">

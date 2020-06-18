@@ -1,6 +1,7 @@
 const ffmpeg = require("@ffmpeg-installer/ffmpeg");
 const util = require("electron-util");
 var spawn = require("child_process").spawn;
+var { exec } = require("child_process");
 const prettyMs = require("pretty-ms");
 const moment = require("moment");
 const path = require("path");
@@ -10,9 +11,11 @@ const ffmpegPath = util.fixPathForAsarUnpack(ffmpeg.path);
 let progress, estimator;
 const fs = require("fs");
 const del = require("del");
+const Store = require("electron-store");
 
+const store = new Store();
+const frameRate = store.get("frameRate") || 30;
 const { sendProgressData } = require("../windows/video");
-
 const speedUpVideo = async (inputPath, durationMs, selectedMusic) => {
   const now = Date.now();
   const outputPath = `/Users/mac/ilias/${moment(now).format(
@@ -21,22 +24,25 @@ const speedUpVideo = async (inputPath, durationMs, selectedMusic) => {
 
   console.log("Output", outputPath);
   console.log(inputPath);
-  console.log(path.resolve(selectedMusic))
 
-  let params = []
+  let startTime = Date.now();
 
-  if(selectedMusic) {
-   params = [
+  let params = [];
+
+  if (selectedMusic) {
+    params = [
+      "-r",
+      `${frameRate}`,
       "-pattern_type",
       "glob",
       "-i",
       "*.png",
+      "-stream_loop",
+      "1",
       "-i",
       path.resolve(selectedMusic),
       "-c:a",
       "copy",
-      "-vf",
-      "fps=30",
       "-c:v",
       "libx264",
       "-preset",
@@ -64,18 +70,16 @@ const speedUpVideo = async (inputPath, durationMs, selectedMusic) => {
       "-profile:a",
       "aac_low",
       "-shortest",
-      outputPath
-    ]
+      outputPath,
+    ];
   } else {
-
     params = [
+      "-r",
+      `${frameRate}`,
       "-pattern_type",
       "glob",
       "-i",
       "*.png",
-   
-      "-vf",
-      "fps=30",
       "-c:v",
       "libx264",
       "-preset",
@@ -102,15 +106,12 @@ const speedUpVideo = async (inputPath, durationMs, selectedMusic) => {
       "384k",
       "-profile:a",
       "aac_low",
-      outputPath]
+      outputPath,
+    ];
   }
-  let converter = await spawn(
-    ffmpegPath,
-  params,
-    {
-      cwd: inputPath,
-    }
-  );
+  let converter = await spawn(ffmpegPath, params, {
+    cwd: inputPath,
+  });
 
   let speedProcessing;
   let stderr = "";
@@ -126,6 +127,7 @@ const speedUpVideo = async (inputPath, durationMs, selectedMusic) => {
 
     data = data.trim();
     const timeProccessed = timeRegex.exec(data);
+    let isDone = false;
 
     if (timeProccessed) {
       const time = moment.duration(timeProccessed[1]).asMilliseconds();
@@ -138,21 +140,27 @@ const speedUpVideo = async (inputPath, durationMs, selectedMusic) => {
         progress = 100;
       }
       console.log(progress);
-      sendProgressData(progress, outputPath);
+      sendProgressData(progress, outputPath, isDone);
     }
 
     converter.on("error", (err) => console.log("Error On Command", err));
 
     converter.on("exit", (code) => {
+      let endTime = Date.now();
       if (code === 0) {
+        console.log(
+          `This video take ${(endTime - startTime) / 60000} minutes `
+        );
         console.log("Process Done :)");
         progressPercentage = 100;
         console.log(outputPath);
+        isDone = true;
+        sendProgressData(progress, outputPath, isDone);
 
         // delete directory recursively
         const deleteFiles = async () => {
           try {
-            await del(inputPath);
+            let converter = await exec(`rm -r ${inputPath}`);
 
             console.log(`${inputPath} is deleted!`);
           } catch (err) {
@@ -162,6 +170,7 @@ const speedUpVideo = async (inputPath, durationMs, selectedMusic) => {
         deleteFiles();
       } else {
         console.log("Process Failed :(");
+
         //   speedUpVideo(inputPath)
       }
     });
