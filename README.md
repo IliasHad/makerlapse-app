@@ -9,7 +9,7 @@ Makerlapse is a cross paltform that take screenshots of your full screen or a sp
 - Simple UI: We provide easy & clean UI with only necessary elements, with one click you can get time-lapse video ready in couple of seconds
 
 - Add your own soundtrack: You can upload your own soundtack. So, you'll have a ready made timelapse video to share
-- Cross-platform: You can use it both on Windows and Mac OS
+- Cross-platform: You can use it both on Windows (Available very soon) and Mac OS
 
 
 ## About Me
