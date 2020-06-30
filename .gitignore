@@ -22,3 +22,5 @@ yarn-debug.log*
 yarn-error.log*
 .idea
 /2020-*
+*.mp4
+/timelapse-videos
