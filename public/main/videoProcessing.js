@@ -2,7 +2,7 @@ const ffmpeg = require("@ffmpeg-installer/ffmpeg");
 const util = require("electron-util");
 var spawn = require("child_process").spawn;
 var { exec } = require("child_process");
-const {app} = require("electron")
+const { app } = require("electron");
 const prettyMs = require("pretty-ms");
 const moment = require("moment");
 const path = require("path");
@@ -23,10 +23,9 @@ const speedUpVideo = async (inputPath, durationMs, selectedMusic) => {
     "YYYY-MM-DD-HH-mm-ss"
   )}.mp4`;
 
-
   fs.exists(`${app.getAppPath()}/timelpase-videos/`, (excists) => {
-    if(!excists) fs.mkdirSync(`${app.getAppPath()}/timelpase-videos/`)
-  })
+    if (!excists) fs.mkdirSync(`${app.getAppPath()}/timelpase-videos/`);
+  });
   console.log("Output", outputPath);
   console.log(inputPath);
 
@@ -124,10 +123,10 @@ const speedUpVideo = async (inputPath, durationMs, selectedMusic) => {
   converter.stderr.setEncoding("utf8");
   converter.stdout.setEncoding("utf8");
 
-  converter.stdout.on("data", function(data) {
+  converter.stdout.on("data", function (data) {
     console.log(data);
   });
-  converter.stderr.on("data", function(data) {
+  converter.stderr.on("data", function (data) {
     stderr += data;
 
     data = data.trim();
