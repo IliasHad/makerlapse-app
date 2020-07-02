@@ -4,6 +4,7 @@ import { Layout } from "../Components/layout";
 import { ReactComponent as WaitSVG } from "../wait.svg";
 import { MdClose } from "react-icons/md";
 import { ReactComponent as DoneSVG } from "../done.svg";
+import { ReactComponent as BmcSVG } from "../buy-me-a-coffe.svg";
 
 const { ipcRenderer } = window.require("electron");
 
@@ -48,6 +49,26 @@ export const VideoPage = () => {
                 onClick={() => ipcRenderer.send("open-video", videoPath)}
               >
                 Reveal In Finder
+              </button>
+
+              <button
+                style={{
+                  marginLeft: "5px",
+                  marginTop: "5px",
+                  fontSize: "20px !important",
+                }}
+                className="button button-secondary bmc-button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  window
+                    .require("electron")
+                    .shell.openExternal(
+                      "https://www.buymeacoffee.com/iliashaddad3"
+                    );
+                }}
+              >
+                <BmcSVG width="30" height="30" />
+                Buy me a coffee
               </button>
             </div>
           </>
