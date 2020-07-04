@@ -48,7 +48,7 @@ Demos Video of Makerlapse
 
 
 
-#### Download 
+## Download 
 
 Clone this repo
 ```javascript
@@ -61,7 +61,8 @@ yarn && yarn start
 ```
 
 
-
+##  Contributing
+If you have found any bugs or just want to see some new features in Makerlapse, feel free to open an issue. I'm open to any suggestions and bug reports would be really helpful for me and appreciated very much. Also, please don't hesitate to open a pull request. This is really important to me and for the further development of this project.
 ## Special Thanks  ✨
 
 Thanks goes to all members of Moroccan Makers Community🇲🇦 and especially [Amine](https://twitter.com/kytwb )
