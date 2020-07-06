@@ -16,7 +16,7 @@ Makerlapse is a cross paltform that take screenshots of your full screen or a sp
 
 I'm a self-taught developer and I love watching speed coding videos and see how things are built-in timelapse video effects and I was inspired by Devon Crawford Video which he makes a script to automate his video editing process and it's built it with C and FFmpeg after that I come up with idea for cross-platform desktop app using Node js and FFmpeg 
 
-I built Marketplace to document my journey as newbie indie maker and self-taught developer for my #12SideProjectsIn3Months Challenge
+I built Makerlapse to document my journey as newbie indie maker and self-taught developer for my #12SideProjectsIn3Months Challenge
 
  
 * [Twitter](https://twitter.com/IliasHaddad3)
