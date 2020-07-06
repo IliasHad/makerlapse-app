@@ -1,7 +1,25 @@
-### Makerlapse
+## Makerlapse
 
 Makerlapse is a cross paltform that take screenshots of your full screen or a specific window and convert all screenshots taken in a video and you can add a soundtrack . In a couple of clicks ,you have  ready made timelapse video of your work to share with your friends or clients
 
+
+<a href="https://www.patreon.com/iliashaddad">
+  <img src="https://c5.patreon.com/external/logo/become_a_patron_button@2x.png" width="160">
+</a>
+
+<a href="https://www.buymeacoffee.com/iliashaddad" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
+
+## Usage
+
+Clone this repo
+```javascript
+git clone https://github.com/IliasHad/makerlapse-app
+```
+
+Install all dependicies then run Makerlapse
+```javascript
+cd makerlapse-app && yarn && yarn start
+```
 
 ### Features
 - Light files: We don't record a full length video and then speed it up – instead, we record directly a time-lapse video. This means no heavy files on your hard drive and quicker exporting process.
@@ -23,6 +41,7 @@ I built Makerlapse to document my journey as newbie indie maker and self-taught 
 * [Indie Hackers](https://www.indiehackers.com/Iliashad/)
 * [Instagram](https://www.instagram.com/iliashaddad3)
 * [Support Makerlapse by buying me a coffee!](https://www.buymeacoffee.com/iliashaddad3)
+* [Support Makerlapse by buying me a coffee!](https://patreon.com/iliashaddad)
 
 
 
@@ -48,20 +67,11 @@ Demos Video of Makerlapse
 
 
 
-#### Download 
-
-Clone this repo
-```javascript
-git clone https://github.com/IliasHad/makerlapse-app
-```
-
-Install all dependicies then run Makerlapse
-```javascript
-yarn && yarn start
-```
 
 
 
+##  Contributing
+If you have found any bugs or just want to see some new features in Makerlapse, feel free to open an issue. I'm open to any suggestions and bug reports would be really helpful for me and appreciated very much. Also, please don't hesitate to open a pull request. This is really important to me and for the further development of this project.
 ## Special Thanks  ✨
 
 Thanks goes to all members of Moroccan Makers Community🇲🇦 and especially [Amine](https://twitter.com/kytwb )
