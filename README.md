@@ -4,10 +4,8 @@ Makerlapse is a cross paltform that take screenshots of your full screen or a sp
 
 
 <a href="https://www.patreon.com/iliashaddad">
-  <img src="https://c5.patreon.com/external/logo/become_a_patron_button@2x.png" width="160">
-</a>
-
-<a href="https://www.buymeacoffee.com/iliashaddad" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
+  <img src="https://c5.patreon.com/external/logo/become_a_patron_button@2x.png" height="41" width="160">
+</a> <a href="https://www.buymeacoffee.com/iliashaddad" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
 
 ## Usage
 
