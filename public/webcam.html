@@ -30,14 +30,12 @@ navigator.mediaDevices.getUserMedia({video: true})
     .then(function(stream) {
       streams = stream
       document.getElementById('camera').srcObject = stream;
-      console.log(streams)
     }).catch(function() {
       alert('could not connect stream');
     });
 
 
     ipcRenderer.on("destroy-webcam", (e) => {
-      console.log(streams)
       streams.getTracks().forEach(track => track.stop())
     })
 </script>

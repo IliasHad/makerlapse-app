@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { FcWebcam } from "react-icons/fc";
 import { MdScreenShare, MdPauseCircleFilled } from "react-icons/md";
 
 import {
   RiCameraOffLine,
   RiCameraLine,
-  RiPauseCircleLine,
   RiRecordCircleLine,
 } from "react-icons/ri";
 
@@ -33,8 +31,6 @@ export const Content = () => {
 
         setWindowList(windowsItems);
         setScreenList(screenItems);
-        console.log(selectedWindow);
-        console.log(sources);
       });
   }, []);
 
@@ -56,7 +52,6 @@ export const Content = () => {
           .id.split("screen:")[1]
           .split(":0")[0];
       }
-      console.log(parseInt(windowId));
       ipcRenderer.sendSync("start-screenshoting", {
         selectedScreen: parseInt(screenId),
         selectedWindow: parseInt(windowId),
@@ -66,10 +61,6 @@ export const Content = () => {
       ipcRenderer.sendSync("stop-screenshoting");
     }
   }, [isRecording]);
-
-  useEffect(() => {
-    console.log(isPaused);
-  }, [isPaused]);
 
   return (
     <div className="content__container">

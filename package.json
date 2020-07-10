@@ -6,7 +6,7 @@
   "private": true,
   "dependencies": {
     "@ffmpeg-installer/ffmpeg": "^1.0.20",
-    "cross-env": "6.0.2",
+    "cross-env": "^7.0.2",
     "del": "^5.1.0",
     "electron-is-dev": "1.1.0",
     "electron-log": "^3.0.8",

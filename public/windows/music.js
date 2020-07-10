@@ -18,18 +18,14 @@ const openMusicDialog = () => {
       filters: [{ name: "Music", extensions: ["mp3"] }],
     })
     .then((result) => {
-      console.log(result.canceled);
       if (result.filePaths) {
         let filePath = result.filePaths[0];
         hideMusicWindow();
         createVideoWindow();
         speedUpVideo(inputPath, time, filePath);
       }
-      console.log(result.filePaths);
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch((err) => {});
 };
 
 function createMusicWindow(input, duration) {

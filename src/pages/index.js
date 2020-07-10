@@ -9,23 +9,6 @@ export const IndexPage = () => {
       <Header title="Makerlapse" returnPath="/preferences" />
 
       <Content />
-
-      {/*
-     
-     
-     
-     <button onClick={() => {
-        let msg =  ipcRenderer.sendSync("start-screenshoting")
-        console.log(msg)
-     
-     }}>Start ScreenShooting :)</button>
-          
-     
-     <button onClick={() => {
-       let msg = ipcRenderer.sendSync("stop-screenshoting")
-       console.log(msg)
-     }}>Stop ScreenShooting :)</button>
-     */}
     </Layout>
   );
 };

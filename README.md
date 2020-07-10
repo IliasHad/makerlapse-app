@@ -28,6 +28,15 @@ cd makerlapse-app && yarn && yarn start
 - Cross-platform: You can use it both on Windows (Available very soon) and Mac OS
 
 
+ ### Todos
+
+- [x] Add support for windows 10 to take screenshots of the screen
+- [ ] Add support for windows 10 to take screenshots of a specific windows
+- [ ] Add support for linux to take screenshots of the screen
+- [ ] Add support for linux to take screenshots of a specific window
+- [ ] Merge screenshots into a timelapse video while recording 
+
+
 ## About Me
 
 I'm a self-taught developer and I love watching speed coding videos and see how things are built-in timelapse video effects and I was inspired by Devon Crawford Video which he makes a script to automate his video editing process and it's built it with C and FFmpeg after that I come up with idea for cross-platform desktop app using Node js and FFmpeg 
@@ -35,6 +44,8 @@ I'm a self-taught developer and I love watching speed coding videos and see how 
 I built Makerlapse to document my journey as newbie indie maker and self-taught developer for my #12SideProjectsIn3Months Challenge
 
  
+
+
 * [Twitter](https://twitter.com/IliasHaddad3)
 * [Indie Hackers](https://www.indiehackers.com/Iliashad/)
 * [Instagram](https://www.instagram.com/iliashaddad3)
