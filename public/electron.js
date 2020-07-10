@@ -162,7 +162,14 @@ function createWebcamWindow() {
     y: height - 210,
   });
   webCamWindow.loadURL(`file://${path.join(__dirname, "webcam.html")}`);
-  app.dock.hide();
+ 
+ 
+  if (process.platform === "darwin") {
+
+    app.dock.hide();
+
+  }
+
   webCamWindow.setAlwaysOnTop(true, "floating");
   webCamWindow.setVisibleOnAllWorkspaces(true);
   webCamWindow.fullScreenable = false;
@@ -183,9 +190,9 @@ function showEstimatedTime(frameCount) {
   tray.setTitle(duration);
 }
 
-ipcMain.on("upload-soudtrack", (event) => {
+ipcMain.on("upload-soudtrack", (e) => {
   openMusicDialog();
-  event.returnValue = "Upload Soundtarck";
+  e.reply("asynchronous-reply");
 });
 
 ipcMain.on("skip-music", (e) => {

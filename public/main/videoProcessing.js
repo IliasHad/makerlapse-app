@@ -19,12 +19,16 @@ const frameRate = store.get("frameRate") || 30;
 const { sendProgressData } = require("../windows/video");
 const speedUpVideo = async (inputPath, durationMs, selectedMusic) => {
   const now = Date.now();
-  const outputPath = `${app.getAppPath()}/timelpase-videos/${moment(now).format(
+  const outputPath = 
+  
+  
+  path.join(app.getAppPath(),'timelpase-videos', `${moment(now).format(
     "YYYY-MM-DD-HH-mm-ss"
-  )}.mp4`;
+  )}.mp4`)
+ ;
 
-  fs.exists(`${app.getAppPath()}/timelpase-videos/`, (excists) => {
-    if (!excists) fs.mkdirSync(`${app.getAppPath()}/timelpase-videos/`);
+  fs.exists(path.join(app.getAppPath(),'timelpase-videos'), (excists) => {
+    if (!excists) fs.mkdirSync(path.join(app.getAppPath(),'timelpase-videos'))
   });
   console.log("Output", outputPath);
   console.log(inputPath);

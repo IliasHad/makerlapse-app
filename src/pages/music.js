@@ -35,13 +35,13 @@ export const MusicPage = () => {
         <div>
           <button
             className="button button-primary"
-            onClick={() => ipcRenderer.sendSync("upload-soudtrack")}
+            onClick={() => ipcRenderer.send("upload-soudtrack")}
           >
             Upload
           </button>
           <button
             className="button button-secondary"
-            onClick={() => ipcRenderer.sendSync("skip-music")}
+            onClick={() => ipcRenderer.send("skip-music")}
           >
             Skip
           </button>

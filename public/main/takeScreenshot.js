@@ -24,10 +24,15 @@ function capture(folder, selectedScreen, selectedWindow) {
     console.log(excists);
     let output = path.join(dir, folder, filename);
     console.log("Kayn", selectedWindow);
-    if (selectedWindow)
+
+    if (process.platform === "darwin") {
+
+      if (selectedWindow)
       command = `/usr/sbin/screencapture  -l ${selectedWindow}   -x ${output}`;
-    else command = `/usr/sbin/screencapture    -x ${output}`;
-    if (excists) {
+    else command = `/usr/sbin/screencapture    -x ${output}`
+
+    }
+    if (excists && process.platform === "darwin") {
       console.log(command);
 
       exec(command, (error, stdout, stderr) => {
@@ -35,7 +40,28 @@ function capture(folder, selectedScreen, selectedWindow) {
           console.log("Selection captured!");
         }
       });
-    } else {
+
+
+
+    } 
+    else if(excists && process.platform === `win32`) {
+
+
+      console.log(selectedWindow)
+      if (selectedWindow) {
+
+        console.log('Hi')
+        screenshot({windowId: selectedWindow, filename: output})
+        
+      }
+      else {
+        screenshot({ filename: output})
+
+      }
+
+
+    }
+    else  {
       createScreenShotsDir(folder);
     }
   });
