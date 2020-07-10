@@ -19,19 +19,14 @@ const frameRate = store.get("frameRate") || 30;
 const { sendProgressData } = require("../windows/video");
 const speedUpVideo = async (inputPath, durationMs, selectedMusic) => {
   const now = Date.now();
-  const outputPath = 
-  
-  
-  path.join(app.getAppPath(),'timelpase-videos', `${moment(now).format(
-    "YYYY-MM-DD-HH-mm-ss"
-  )}.mp4`)
- ;
-
-  fs.exists(path.join(app.getAppPath(),'timelpase-videos'), (excists) => {
-    if (!excists) fs.mkdirSync(path.join(app.getAppPath(),'timelpase-videos'))
+  const outputPath = path.join(
+    app.getAppPath(),
+    "timelpase-videos",
+    `${moment(now).format("YYYY-MM-DD-HH-mm-ss")}.mp4`
+  );
+  fs.exists(path.join(app.getAppPath(), "timelpase-videos"), (excists) => {
+    if (!excists) fs.mkdirSync(path.join(app.getAppPath(), "timelpase-videos"));
   });
-  console.log("Output", outputPath);
-  console.log(inputPath);
 
   let startTime = Date.now();
 
@@ -127,10 +122,8 @@ const speedUpVideo = async (inputPath, durationMs, selectedMusic) => {
   converter.stderr.setEncoding("utf8");
   converter.stdout.setEncoding("utf8");
 
-  converter.stdout.on("data", function (data) {
-    console.log(data);
-  });
-  converter.stderr.on("data", function (data) {
+  converter.stdout.on("data", function(data) {});
+  converter.stderr.on("data", function(data) {
     stderr += data;
 
     data = data.trim();
@@ -139,15 +132,12 @@ const speedUpVideo = async (inputPath, durationMs, selectedMusic) => {
 
     if (timeProccessed) {
       const time = moment.duration(timeProccessed[1]).asMilliseconds();
-      console.log("time", parseInt(time));
-      console.log("Duration Ms ", parseInt(durationMs));
-      console.log("Progress");
+
       let progress = Math.round((time / durationMs) * 100);
 
       if (progress > 100) {
         progress = 100;
       }
-      console.log(progress);
       sendProgressData(progress, outputPath, isDone);
     }
 
@@ -161,7 +151,7 @@ const speedUpVideo = async (inputPath, durationMs, selectedMusic) => {
         );
         console.log("Process Done :)");
         progressPercentage = 100;
-        console.log(outputPath);
+
         isDone = true;
         sendProgressData(progress, outputPath, isDone);
 

@@ -16,18 +16,7 @@ export const MusicPage = () => {
           </button>
         </div>
       </header>
-      <div
-        className="empty-state"
-        style={{ webkitAppRegion: "drag" }}
-        onDrag={(e) => {
-          e.preventDefault();
-          console.log(e);
-          let droppedFiles = e.target.files || e.dataTransfer.files;
-          //assign files to fileservice
-          console.log(droppedFiles);
-          //open wizard popup
-        }}
-      >
+      <div className="empty-state">
         <MusicSVG width="200" height="200" />
 
         <p>Upload Soundtrack to be added on your timelapse video</p>

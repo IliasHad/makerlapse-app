@@ -80,8 +80,6 @@ app.on("ready", () => {
   });
 
   mb.on("ready", () => {
-    console.log("Ready ...");
-
     tray = mb.tray;
   });
 
@@ -104,7 +102,6 @@ ipcMain.on(
     selectedWindowId = selectedWindow;
     folder = moment(now).format("YYYY-MM-DD-HH-mm-ss");
 
-    console.log(selectedWindow);
     if (selectOption === "screen-only") {
       intereval = setInterval(() => {
         frameCount += 1;
@@ -136,7 +133,6 @@ ipcMain.on("stop-screenshoting", (event) => {
 
   fs.readdir(inputPath, (error, files) => {
     frameCount = files.length; // return the number of files
-    console.log(frameCount, frameRate);
     time = (frameCount / frameRate) * 1000;
     createMusicWindow(inputPath, time);
   });
@@ -162,30 +158,23 @@ function createWebcamWindow() {
     y: height - 210,
   });
   webCamWindow.loadURL(`file://${path.join(__dirname, "webcam.html")}`);
- 
- 
+
   if (process.platform === "darwin") {
-
     app.dock.hide();
-
   }
 
   webCamWindow.setAlwaysOnTop(true, "floating");
   webCamWindow.setVisibleOnAllWorkspaces(true);
   webCamWindow.fullScreenable = false;
-  console.log(webCamWindow.isAlwaysOnTop());
 
   webCamWindow.on("closed", () => (webCamWindow = null));
 }
 
 function showEstimatedTime(frameCount) {
   let time = frameCount / frameRate;
-  console.log(frameCount, time);
   var duration = moment
     .utc(moment.duration(time, "seconds").asMilliseconds())
     .format("mm:ss");
-
-  console.log(duration);
 
   tray.setTitle(duration);
 }
@@ -199,7 +188,6 @@ ipcMain.on("skip-music", (e) => {
   e.reply("asynchronous-reply");
   hideMusicWindow();
   createVideoWindow();
-  console.log(inputPath, time);
   speedUpVideo(inputPath, time, null);
 });
 
@@ -218,7 +206,6 @@ ipcMain.on("hide-video", (e) => {
   hideVideoWindow();
 });
 ipcMain.on("open-video", (e, path) => {
-  console.log(path);
   e.reply("asynchronous-reply");
   shell.showItemInFolder(path);
 });
@@ -232,7 +219,6 @@ ipcMain.on("udpate-preferences", (e, frameRate) => {
 
 ipcMain.on("pause-screenshoting", (event) => {
   event.returnValue = "Pause ScreenShoting";
-  console.log("Pause Recording");
   clearInterval(intereval);
   webCamWindow.close();
 });
