@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { FcWebcam } from "react-icons/fc";
 import { MdScreenShare, MdPauseCircleFilled } from "react-icons/md";
 
 import {
   RiCameraOffLine,
   RiCameraLine,
-  RiPauseCircleLine,
   RiRecordCircleLine,
 } from "react-icons/ri";
 

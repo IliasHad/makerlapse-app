@@ -1,7 +1,6 @@
-import React, { ReactComponent } from "react";
+import React from "react";
 import { Layout } from "../Components/layout";
-import { Header } from "../Components/header";
-import { Link } from "react-router-dom";
+
 import { ReactComponent as MusicSVG } from "../music.svg";
 import { MdClose } from "react-icons/md";
 const { ipcRenderer } = window.require("electron");
