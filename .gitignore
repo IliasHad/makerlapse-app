@@ -24,4 +24,5 @@ yarn-error.log*
 /2020-*
 *.mp4
 /timelpase-videos
+/timelapse-videos
 /test-videos
