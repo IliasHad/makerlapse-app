@@ -32,7 +32,7 @@ cd makerlapse-app && yarn && yarn start
 
 - [x] Add support for windows 10 to take screenshots of the screen
 - [ ] Add support for windows 10 to take screenshots of a specific windows
-- [ ] Add support for linux to take screenshots of the screen
+- [x] Add support for linux to take screenshots of the screen
 - [ ] Add support for linux to take screenshots of a specific window
 - [ ] Merge screenshots into a timelapse video while recording 
 
