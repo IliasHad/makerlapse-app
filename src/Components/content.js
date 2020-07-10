@@ -23,8 +23,6 @@ export const Content = () => {
   const os = ipcRenderer.sendSync("get-os");
 
   useEffect(() => {
-    console.log(os);
-
     desktopCapturer
       .getSources({ types: ["window", "screen"] })
       .then(async (sources) => {

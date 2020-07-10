@@ -17,8 +17,6 @@ function createVideoWindow() {
       : `file://${path.join(__dirname, "../build/index.html")}`
   );
 
-  videoWindow.webContents.openDevTools();
-
   videoWindow.on("closed", () => (videoWindow = null));
 }
 

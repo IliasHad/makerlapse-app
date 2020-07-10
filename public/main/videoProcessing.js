@@ -149,7 +149,6 @@ const speedUpVideo = async (inputPath, durationMs, selectedMusic) => {
         console.log(
           `This video take ${(endTime - startTime) / 60000} minutes `
         );
-        console.log("Process Done :)");
         progressPercentage = 100;
 
         isDone = true;
@@ -159,16 +158,12 @@ const speedUpVideo = async (inputPath, durationMs, selectedMusic) => {
         const deleteFiles = async () => {
           try {
             let converter = await exec(`rm -r ${inputPath}`);
-
-            console.log(`${inputPath} is deleted!`);
           } catch (err) {
             console.error(`Error while deleting ${inputPath}.`);
           }
         };
         deleteFiles();
       } else {
-        console.log("Process Failed :(");
-
         //   speedUpVideo(inputPath)
       }
     });
