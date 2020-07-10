@@ -184,6 +184,9 @@ ipcMain.on("upload-soudtrack", (e) => {
   e.reply("asynchronous-reply");
 });
 
+ipcMain.on("get-os", (e) => {
+  e.returnValue = process.platform;
+});
 ipcMain.on("skip-music", (e) => {
   e.reply("asynchronous-reply");
   hideMusicWindow();

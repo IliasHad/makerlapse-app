@@ -28,17 +28,17 @@ function capture(folder, selectedScreen, selectedWindow) {
         command = `/usr/sbin/screencapture  -l ${selectedWindow}   -x ${output}`;
       else command = `/usr/sbin/screencapture    -x ${output}`;
     }
-    if (excists && process.platform === "darwin") {
-      exec(command, (error, stdout, stderr) => {
-        if (!error) {
-          console.log("Selection captured!");
-        }
-      });
-    } else if (excists && process.platform === "win32") {
-      if (selectedWindow) {
-        screenshot({ windowId: selectedWindow, filename: output });
+    if (excists) {
+      if (process.platform === "darwin") {
+        exec(command, (error, stdout, stderr) => {
+          if (!error) {
+            console.log("Selection captured!");
+          }
+        });
       } else {
-        screenshot({ filename: output });
+        if (selectedWindow && process.platform === "win32")
+          screenshot({ windowId: selectedWindow, filename: output });
+        else screenshot({ filename: output });
       }
     } else {
       createScreenShotsDir(folder);

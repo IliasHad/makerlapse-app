@@ -10,7 +10,6 @@ import {
 // In the renderer process.
 const { desktopCapturer } = window.require("electron");
 const { ipcRenderer } = window.require("electron");
-
 export const Content = () => {
   const [selectOption, setSelectOption] = useState("screen-only");
   const [selectedWindow, setSelectedWindow] = useState(null);
@@ -21,12 +20,15 @@ export const Content = () => {
 
   const [windowList, setWindowList] = useState([]);
   const [screenList, setScreenList] = useState([]);
+  const os = ipcRenderer.sendSync("get-os");
+
   useEffect(() => {
+    console.log(os);
+
     desktopCapturer
       .getSources({ types: ["window", "screen"] })
       .then(async (sources) => {
         const screenItems = sources.filter((el) => el.id.includes("screen"));
-
         const windowsItems = sources.filter((el) => el.id.includes("window"));
 
         setWindowList(windowsItems);
@@ -111,14 +113,17 @@ export const Content = () => {
             <option key={el.id}>{el.name}</option>
           ))}
         </select>
-        <select
-          className="window__list"
-          onChange={(e) => setSelectedWindow(e.target.value)}
-        >
-          {windowList.map((el) => (
-            <option key={el.id}>{el.name}</option>
-          ))}
-        </select>
+
+        {os === "darwin" && (
+          <select
+            className="window__list"
+            onChange={(e) => setSelectedWindow(e.target.value)}
+          >
+            {windowList.map((el) => (
+              <option key={el.id}>{el.name}</option>
+            ))}
+          </select>
+        )}
       </div>
       <div className="actions">
         <input
