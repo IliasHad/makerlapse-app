@@ -63,7 +63,7 @@ export const VideoPage = () => {
                   window
                     .require("electron")
                     .shell.openExternal(
-                      "https://www.buymeacoffee.com/iliashaddad3"
+                      "https://www.buymeacoffee.com/iliashaddad"
                     );
                 }}
               >
