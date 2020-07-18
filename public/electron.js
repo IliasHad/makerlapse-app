@@ -13,6 +13,7 @@ let tray;
 let mb;
 let webCamWindow = null;
 let frameCount = 0;
+let recordingOption;
 const {
   createMusicWindow,
   openMusicDialog,
@@ -97,6 +98,7 @@ ipcMain.on(
   "start-screenshoting",
   (event, { selectedScreen, selectedWindow, selectOption }) => {
     event.returnValue = "Start ScreenShoting";
+    recordingOption = selectOption;
     frameCount = 0;
     selectedScreenId = selectedScreen;
     selectedWindowId = selectedWindow;
@@ -184,6 +186,11 @@ ipcMain.on("upload-soudtrack", (e) => {
   e.reply("asynchronous-reply");
 });
 
+ipcMain.on("update-recording-option", (e, selectedOption) => {
+  recordingOption = selectedOption;
+  console.log(recordingOption);
+  e.returnValue = recordingOption;
+});
 ipcMain.on("get-os", (e) => {
   e.returnValue = process.platform;
 });
@@ -221,17 +228,21 @@ ipcMain.on("udpate-preferences", (e, frameRate) => {
 });
 
 ipcMain.on("pause-screenshoting", (event) => {
-  event.returnValue = "Pause ScreenShoting";
   clearInterval(intereval);
-  webCamWindow.close();
+  if (recordingOption === "screen-with-camera") {
+    webCamWindow.close();
+  }
+  event.returnValue = "Pause ScreenShoting";
 });
 ipcMain.on("resume-screenshoting", (event) => {
-  event.returnValue = "Resume ScreenShoting";
-  createWebcamWindow();
+  if (recordingOption === "screen-with-camera") {
+    createWebcamWindow();
+  }
   intereval = setInterval(() => {
     frameCount += 1;
 
     showEstimatedTime(frameCount);
     capture(folder, selectedScreenId, selectedWindowId);
   }, 1000);
+  event.returnValue = "Resume ScreenShoting";
 });

@@ -113,7 +113,7 @@ const speedUpVideo = async (inputPath, durationMs, selectedMusic) => {
     ];
   }
   let converter = await spawn(ffmpegPath, params, {
-    cwd: inputPath,
+    cwd:inputPath,
   });
 
   let speedProcessing;

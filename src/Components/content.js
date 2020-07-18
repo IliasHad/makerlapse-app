@@ -72,7 +72,10 @@ export const Content = () => {
                 ? "list__item list__item-active"
                 : "list__item"
             }
-            onClick={() => setSelectOption("screen-only")}
+            onClick={() => {
+              setSelectOption("screen-only");
+              ipcRenderer.sendSync("update-recording-option", "screen-only");
+            }}
           >
             <span className="screen-only screen-share">
               <MdScreenShare size="2.5em" />
@@ -89,7 +92,13 @@ export const Content = () => {
                 ? "list__item list__item-active"
                 : "list__item"
             }
-            onClick={() => setSelectOption("screen-with-camera")}
+            onClick={() => {
+              setSelectOption("screen-with-camera");
+              ipcRenderer.sendSync(
+                "update-recording-option",
+                "screen-with-camera"
+              );
+            }}
           >
             <span className="screen-with-camera screen-share">
               <MdScreenShare size="2.5em" />
