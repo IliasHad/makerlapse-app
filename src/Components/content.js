@@ -32,7 +32,7 @@ export const Content = () => {
         setWindowList(windowsItems);
         setScreenList(screenItems);
       });
-  });
+  }, []);
 
   useEffect(() => {
     let windowId = null;
@@ -60,7 +60,7 @@ export const Content = () => {
     } else if (isRecording === false) {
       ipcRenderer.sendSync("stop-screenshoting");
     }
-  }, [isRecording]);
+  }, []);
 
   return (
     <div className="content__container">
