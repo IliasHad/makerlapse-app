@@ -32,7 +32,7 @@ export const Content = () => {
         setWindowList(windowsItems);
         setScreenList(screenItems);
       });
-  }, []);
+  });
 
   useEffect(() => {
     let windowId = null;

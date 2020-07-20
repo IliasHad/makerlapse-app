@@ -50,7 +50,7 @@ I built Makerlapse to document my journey as newbie indie maker and self-taught 
 * [Indie Hackers](https://www.indiehackers.com/Iliashad/)
 * [Instagram](https://www.instagram.com/iliashaddad3)
 * [Support Makerlapse by buying me a coffee!](https://www.buymeacoffee.com/iliashaddad)
-* [Support Makerlapse by buying me a coffee!](https://patreon.com/iliashaddad)
+* [Support Makerlapse by becoming a Patreon!](https://patreon.com/iliashaddad)
 
 
 
