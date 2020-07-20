@@ -2,7 +2,7 @@
   "name": "makerlapse",
   "description": "Document Your Journey In A Timelapse Video",
   "author": "IliasHad",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "private": true,
   "dependencies": {
     "@ffmpeg-installer/ffmpeg": "^1.0.20",
@@ -31,11 +31,7 @@
     "react-scripts": "3.1.2",
     "wait-on": "3.3.0"
   },
-  "build": {
-    "publish": {
-      "provider": "github"
-    }
-  },
+ 
   "main": "public/electron.js",
   "homepage": "./",
   "scripts": {
@@ -59,5 +55,43 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+
+  "build": {
+    "compression": "maximum",
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "IliasHad",
+        "repo": "makerlapse-app"
+   
+      }
+    ],
+    "appId": "com.makerlapse-app",
+    "productName": "Makerlapse",
+    "copyright": "Copyright © 2020 ${author}",
+    "artifactName": "${productName}.${ext}",
+    "win": {
+      "target": [
+        "squirrel",
+        "nsis",
+        "zip"
+      ],
+      "icon": "assets/icon.png"
+    },
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "icon": "assets/icon_512.png"
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ]
+    }
   }
+
 }
