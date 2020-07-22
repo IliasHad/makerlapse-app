@@ -60,7 +60,9 @@ export const Content = () => {
     } else if (isRecording === false) {
       ipcRenderer.sendSync("stop-screenshoting");
     }
-  }, []);
+     // eslint-disable-next-line
+  }, [isRecording]);    
+
 
   return (
     <div className="content__container">
