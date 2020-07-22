@@ -2,7 +2,7 @@
   "name": "makerlapse",
   "description": "Document Your Journey In A Timelapse Video",
   "author": "IliasHad",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "private": true,
   "dependencies": {
     "@ffmpeg-installer/ffmpeg": "^1.0.20",
