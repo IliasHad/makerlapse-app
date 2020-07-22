@@ -73,7 +73,6 @@
     "artifactName": "${productName}.${ext}",
     "win": {
       "target": [
-        "squirrel",
         "nsis",
         "zip"
       ],
