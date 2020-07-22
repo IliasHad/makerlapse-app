@@ -84,13 +84,8 @@
         "zip"
       ],
       "icon": "assets/icon_512.png"
-    },
-    "linux": {
-      "target": [
-        "AppImage",
-        "deb"
-      ]
     }
+  
   }
 
 }
