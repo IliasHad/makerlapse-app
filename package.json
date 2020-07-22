@@ -26,12 +26,11 @@
   "devDependencies": {
     "concurrently": "4.1.2",
     "electron": "7.2.4",
-    "electron-builder": "^21.2.0",
+    "electron-builder": "^22.7.0",
     "prettier": "^1.4.4",
     "react-scripts": "3.1.2",
     "wait-on": "3.3.0"
   },
- 
   "main": "public/electron.js",
   "homepage": "./",
   "scripts": {
@@ -56,7 +55,6 @@
       "last 1 safari version"
     ]
   },
-
   "build": {
     "compression": "maximum",
     "publish": [
@@ -64,7 +62,6 @@
         "provider": "github",
         "owner": "IliasHad",
         "repo": "makerlapse-app"
-   
       }
     ],
     "appId": "com.makerlapse-app",
@@ -85,7 +82,5 @@
       ],
       "icon": "assets/icon_512.png"
     }
-  
   }
-
 }
