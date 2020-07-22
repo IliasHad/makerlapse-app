@@ -2,7 +2,7 @@
   "name": "makerlapse",
   "description": "Document Your Journey In A Timelapse Video",
   "author": "IliasHad",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "private": true,
   "dependencies": {
     "@ffmpeg-installer/ffmpeg": "^1.0.20",
@@ -57,13 +57,6 @@
   },
   "build": {
     "compression": "maximum",
-    "publish": [
-      {
-        "provider": "github",
-        "owner": "IliasHad",
-        "repo": "makerlapse-app"
-      }
-    ],
     "appId": "com.makerlapse-app",
     "productName": "Makerlapse",
     "copyright": "Copyright © 2020 ${author}",
