@@ -1,10 +1,6 @@
 name: Build/release
 
-on:
-  push:
-  
-    tags:        
-      - v*           # Push events to v1.0, v1.1, and v1.9 tags 
+on: push
 
 jobs:
   release:
