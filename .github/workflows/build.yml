@@ -1,11 +1,6 @@
 name: Build/release
 
-on:
-  push:
-  
-    tags:        
-      - v*           # Push events to v1.0, v1.1, and v1.9 tags 
-
+on: push
 
 jobs:
   release:
@@ -13,7 +8,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [macos-latest]
+        os: [macos-latest, ubuntu-latest, windows-latest]
 
     steps:
       - name: Check out Git repository
@@ -22,7 +17,7 @@ jobs:
       - name: Install Node.js, NPM and Yarn
         uses: actions/setup-node@v1
         with:
-          node-version: 12.14.1
+          node-version: 10
 
       - name: Build/release Electron app
         uses: samuelmeuli/action-electron-builder@v1
@@ -30,7 +25,6 @@ jobs:
           # GitHub token, automatically provided to the action
           # (No need to define this secret in the repo settings)
           github_token: ${{ secrets.github_token }}
-          build_script_name: "build"
 
           # If the commit is tagged with a version (e.g. "v1.0.0"),
           # release the app after building
