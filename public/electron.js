@@ -6,6 +6,8 @@ const { capture } = require("./main/takeScreenshot");
 const moment = require("moment");
 const { menubar } = require("menubar");
 const fs = require("fs");
+var url = require("url");
+
 let mainWindow;
 let intereval;
 let dir = app.getAppPath();
@@ -27,13 +29,6 @@ const store = new Store();
 
 const frameRate = store.get("frameRate") || 30;
 
-/*
-require("update-electron-app")({
-  repo: "kitze/react-electron-example",
-  updateInterval: "1 hour",
-});
-
-*/
 let inputPath;
 let time = 0;
 let selectedScreenId;
@@ -55,34 +50,36 @@ app.on("activate", () => {
 });
 
 app.on("ready", () => {
-  /*
-  setInterval(() => {
-    capture((err, res) => {
-      if (err) { console.error(err) }
-    })
-  }, captureDelay)*/
-
-  mb = menubar({
-    preloadWindow: true,
-    index: isDev
-      ? "http://localhost:9000"
-      : url.format({
-          pathname: path.join(__dirname, "../build/index.html"),
-          protocol: "file:",
-          slashes: true,
-        }),
-    browserWindow: {
+  if (process.platform === "win32") {
+    mb = new BrowserWindow({
       width: 290,
       height: 380,
       webPreferences: { nodeIntegration: true },
       maximizable: false,
       title: "Makerlapse",
-    },
-  });
-
-  mb.on("ready", () => {
-    tray = mb.tray;
-  });
+    });
+  } else {
+    mb = menubar({
+      preloadWindow: true,
+      index: isDev
+        ? "http://localhost:9000"
+        : url.format({
+            pathname: path.join(__dirname, "../build/index.html"),
+            protocol: "file:",
+            slashes: true,
+          }),
+      browserWindow: {
+        width: 290,
+        height: 380,
+        webPreferences: { nodeIntegration: true },
+        maximizable: false,
+        title: "Makerlapse",
+      },
+    });
+    mb.on("ready", () => {
+      tray = mb.tray;
+    });
+  }
 
   const { powerMonitor } = require("electron");
   powerMonitor.on("resume", () => {
