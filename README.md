@@ -12,9 +12,9 @@ Makerlapse is a cross paltform that take screenshots of your full screen or a sp
 ## Download
 
 
-* [Download For Ubuntu](https://github.com/IliasHad/makerlapse-app/releases/download/v1.2.5/Makerlapse.AppImage)
-* [Download For Windows](https://github.com/IliasHad/makerlapse-app/releases/download/v1.2.5/Makerlapse.exe)
-* [Download For Mac (Doesn't work on Catalina)](https://github.com/IliasHad/makerlapse-app/releases/download/v1.2.5/Makerlapse.dmg)
+* [Download For Ubuntu](https://github.com/IliasHad/makerlapse-app/releases/download/v1.2.3/Makerlapse.AppImage)
+* [Download For Windows](https://github.com/IliasHad/makerlapse-app/releases/download/v1.2.3/Makerlapse.exe)
+* [Download For Mac (Doesn't work on Catalina)](https://github.com/IliasHad/makerlapse-app/releases/download/v1.2.3/Makerlapse.dmg)
 
 ## Usage
 
