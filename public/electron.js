@@ -47,7 +47,6 @@ app.on("window-all-closed", () => {
 });
 
 app.on("ready", () => {
-  autoUpdater.checkForUpdatesAndNotify();
   if (process.platform === "win32") {
     mb = new BrowserWindow({
       width: 290,
