@@ -15,7 +15,7 @@
     "electron-util": "^0.14.1",
     "execa": "^4.0.0",
     "menubar": "^8.0.1",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "pretty-ms": "^6.0.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
